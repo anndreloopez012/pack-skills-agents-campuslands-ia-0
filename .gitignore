@@ -1,0 +1,6 @@
+# Kits de la comunidad descargados por el instalador (se bajan de su repositorio original)
+.terceros/
+__pycache__/
+*.pyc
+.DS_Store
+graphify-out
