@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Pack IA desde 0</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Skills y agentes de IA para el taller IA desde 0 de Campuslands: un paquete general que se instala solo y especializados por área.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Concepto: una caja de herramientas con franja de tejido; jade marca las skills, maíz marca los agentes. */
+:root{
+  --paper:#F3F6F1; --paper-2:#E8EEE7; --card:#FFFFFF; --ink:#10201A; --muted:#55675E; --line:#D5DDD6;
+  --jade:#0A7558; --jade-soft:#DCEFE6; --jade-ink:#075C45;
+  --maize:#C98A0C; --maize-soft:#FAEDCF; --maize-ink:#7E5300;
+  --rose:#B5473A; --hero:#0F2A21; --hero-ink:#EAF3EE; --hero-muted:#A9C2B6;
+  --shadow:0 1px 0 rgba(16,32,26,.04),0 8px 24px -12px rgba(16,32,26,.18);
+  --f-display:"Bricolage Grotesque","Avenir Next",system-ui,sans-serif;
+  --f-body:"Figtree","Segoe UI",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --r:14px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0C1411; --paper-2:#111C18; --card:#14201B; --ink:#E6EEE9; --muted:#97A99F; --line:#24342D;
+  --jade:#3CC79C; --jade-soft:#123329; --jade-ink:#7EE0BF;
+  --maize:#F0B640; --maize-soft:#352810; --maize-ink:#F6CF7C;
+  --rose:#EE8576; --hero:#08110E; --hero-ink:#EAF3EE; --hero-muted:#93AFA2;
+  --shadow:0 1px 0 rgba(0,0,0,.3),0 10px 30px -14px rgba(0,0,0,.7);
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0C1411; --paper-2:#111C18; --card:#14201B; --ink:#E6EEE9; --muted:#97A99F; --line:#24342D;
+  --jade:#3CC79C; --jade-soft:#123329; --jade-ink:#7EE0BF;
+  --maize:#F0B640; --maize-soft:#352810; --maize-ink:#F6CF7C;
+  --rose:#EE8576; --hero:#08110E; --hero-ink:#EAF3EE; --hero-muted:#93AFA2;
+  --shadow:0 1px 0 rgba(0,0,0,.3),0 10px 30px -14px rgba(0,0,0,.7);
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body.has-tray{padding-bottom:96px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;letter-spacing:-.02em}
+p{margin:0}
+code,.mono{font-family:var(--f-mono);font-size:.82em}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--maize);outline-offset:2px;border-radius:6px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+/* Franja de tejido */
+.tejido{height:14px;background:
+  linear-gradient(135deg,var(--jade) 25%,transparent 25%) 0 0/14px 14px,
+  linear-gradient(225deg,var(--jade) 25%,transparent 25%) 0 0/14px 14px,
+  linear-gradient(315deg,var(--maize) 25%,transparent 25%) 7px 0/14px 14px,
+  linear-gradient(45deg,var(--maize) 25%,transparent 25%) 7px 0/14px 14px,
+  var(--rose)}
+
+/* Encabezado */
+.top{background:var(--hero);color:var(--hero-ink)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:700;font-size:17px;text-decoration:none}
+.brand svg{flex:none}
+.nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;font-size:14px;font-weight:600;color:var(--hero-muted)}
+.nav ul a{text-decoration:none}.nav ul a:hover{color:var(--hero-ink)}
+@media (max-width:760px){.nav ul{display:none}}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding-block:40px 72px}
+.hero>*{min-width:0}
+.hero .eyebrow{color:var(--maize)}
+.hero h1{font-size:clamp(40px,6.2vw,76px);line-height:.98;font-weight:800;margin-top:14px}
+.hero h1 em{font-style:normal;color:var(--maize)}
+.hero .lead{font-size:clamp(17px,1.6vw,19px);color:var(--hero-muted);max-width:34em;margin-top:22px}
+.install{margin-top:30px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:16px}
+.install label{display:block;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--hero-muted);margin-bottom:10px}
+.install-row{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap}
+.install-cmd{flex:1 1 280px;min-width:0;font-family:var(--f-mono);font-size:15px;background:#06100C;color:#D9F5EA;border-radius:10px;padding:14px 16px;overflow-x:auto;white-space:nowrap}
+.install-cmd b{color:#F4C35A;font-weight:500}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:10px;padding:12px 18px;font-weight:700;font-size:15px;cursor:pointer;transition:transform .15s ease,background .15s ease}
+.btn:active{transform:translateY(1px)}
+.btn-maize{background:#F0B640;color:#1E1500}
+.btn-maize:hover{background:#F6C65E}
+.stats{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:28px}
+.stat{display:flex;align-items:baseline;gap:8px}
+.stat strong{font-family:var(--f-display);font-size:32px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--hero-ink)}
+.stat span{font-size:14px;color:var(--hero-muted)}
+
+/* Chat de instalación */
+.chat{background:#F7FAF8;color:#10201A;border-radius:20px;padding:18px;box-shadow:0 30px 60px -30px rgba(0,0,0,.6);transform:rotate(1.2deg)}
+.chat-head{display:flex;align-items:center;gap:8px;padding:2px 4px 14px;border-bottom:1px solid #DCE4DE;font-size:13px;font-weight:700;color:#55675E}
+.dots{display:flex;gap:6px}.dots i{width:10px;height:10px;border-radius:50%;background:#D5DDD6}
+.dots i:first-child{background:#E07B6B}.dots i:nth-child(2){background:#F0B640}.dots i:nth-child(3){background:#3CC79C}
+.msgs{display:flex;flex-direction:column;gap:10px;padding-top:14px;font-size:14px}
+.msg{max-width:88%;padding:10px 13px;border-radius:14px;line-height:1.45;overflow-wrap:anywhere}
+.msg.me{align-self:flex-end;background:#0F2A21;color:#EAF3EE;border-bottom-right-radius:4px;font-family:var(--f-mono);font-size:12.5px}
+.msg.ai{align-self:flex-start;background:#FFFFFF;border:1px solid #DCE4DE;border-bottom-left-radius:4px}
+.msg.ai .ok{color:#0A7558;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chips span{font-size:12px;font-weight:600;padding:4px 9px;border-radius:999px;background:#E8EEE7;color:#2A3B33}
+.chips span.on{background:#0A7558;color:#fff}
+.typing{display:inline-flex;gap:4px}.typing i{width:6px;height:6px;border-radius:50%;background:#8FA79B;animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
+@media (max-width:900px){.hero{grid-template-columns:1fr;gap:40px}.chat{transform:none}}
+
+/* Secciones */
+section{padding-block:80px}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px 56px;align-items:end;margin-bottom:40px}
+.sec-head h2{font-size:clamp(30px,4vw,46px);line-height:1.04;font-weight:800;margin-top:10px}
+.sec-head p{color:var(--muted);font-size:17px;max-width:36em}
+@media (max-width:800px){.sec-head{grid-template-columns:1fr}}
+
+/* Skill vs agente */
+.versus{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:800px){.versus{grid-template-columns:1fr}}
+.vs{border-radius:22px;padding:32px;display:flex;flex-direction:column;gap:18px;min-width:0}
+.vs.skill{background:var(--jade-soft)}
+.vs.agent{background:var(--maize-soft)}
+.vs h3{font-size:30px;font-weight:800}
+.vs .kind{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.vs.skill .kind{color:var(--jade-ink)}.vs.agent .kind{color:var(--maize-ink)}
+.vs p{font-size:17px;max-width:30em}
+.recipe{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.recipe li{display:flex;gap:12px;align-items:center;background:var(--card);border-radius:10px;padding:10px 14px;font-size:15px}
+.recipe li b{font-family:var(--f-mono);font-size:12px;color:var(--jade-ink);background:var(--jade-soft);border-radius:6px;padding:2px 7px}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.day{background:var(--card);border-radius:10px;padding:10px 4px;text-align:center;font-size:12px;font-weight:700;color:var(--muted)}
+.day i{display:block;width:10px;height:10px;border-radius:50%;margin:8px auto 0;background:var(--line)}
+.day.on i{background:var(--maize)}
+.day.on{color:var(--ink)}
+.vs .ex{font-size:14px;color:var(--muted);border-top:1px dashed color-mix(in srgb,var(--ink) 25%,transparent);padding-top:14px}
+.vs .ex strong{color:var(--ink)}
+
+/* Pasos */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;counter-reset:s;list-style:none;margin:0;padding:0}
+@media (max-width:960px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.steps{grid-template-columns:1fr}}
+.step{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px 22px 22px;display:flex;flex-direction:column;gap:10px}
+.step .n{font-family:var(--f-display);font-weight:800;font-size:44px;line-height:1;color:var(--jade)}
+.step h3{font-size:19px;font-weight:700}
+.step p{color:var(--muted);font-size:15px}
+.step .auto{align-self:flex-start;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--jade-soft);color:var(--jade-ink)}
+.step .ask{align-self:flex-start;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--maize-soft);color:var(--maize-ink)}
+
+/* General */
+.band{background:var(--paper-2)}
+.group-title{display:flex;align-items:center;gap:12px;margin:8px 0 18px;font-family:var(--f-display);font-size:22px;font-weight:700}
+.group-title .count{font-family:var(--f-body);font-size:13px;font-weight:700;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.grid+.group-title{margin-top:44px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:10px;min-width:0;transition:border-color .15s ease,transform .15s ease}
+.card:hover{transform:translateY(-2px)}
+.card.s:hover{border-color:var(--jade)}.card.a:hover{border-color:var(--maize)}
+.tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.tag::before{content:"";width:8px;height:8px;border-radius:2px}
+.card.s .tag{color:var(--jade-ink)}.card.s .tag::before{background:var(--jade)}
+.card.a .tag{color:var(--maize-ink)}.card.a .tag::before{background:var(--maize);border-radius:50%}
+.card-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.freq{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--maize-ink);background:var(--maize-soft);border-radius:999px;padding:3px 9px}
+.card h4{font-family:var(--f-display);font-size:19px;font-weight:700;margin:0;letter-spacing:-.01em}
+.card .slug{font-family:var(--f-mono);font-size:12px;color:var(--muted);word-break:break-all}
+.card p{font-size:15px;color:var(--muted)}
+.card .say{font-size:14px;background:var(--paper);border-radius:10px;padding:10px 12px;color:var(--ink)}
+.card .say span{display:block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+
+/* Especializados */
+.toolbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding-block:14px;margin-bottom:28px}
+.toolbar-in{display:flex;flex-direction:column;gap:12px}
+.areas{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:thin}
+.chip{flex:none;display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 13px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
+.chip small{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip[aria-pressed="true"] small{color:color-mix(in srgb,var(--paper) 70%,transparent)}
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.search{flex:1 1 240px;min-width:0;display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:0 12px}
+.search input{flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:15px;padding:10px 0;color:var(--ink);outline:none}
+.search:focus-within{border-color:var(--jade)}
+.seg{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:3px}
+.seg button{border:0;background:transparent;border-radius:7px;padding:7px 12px;font-size:14px;font-weight:600;cursor:pointer;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--paper-2);color:var(--ink)}
+
+.area{border-top:1px solid var(--line);padding-block:36px}
+.area:first-child{border-top:0;padding-top:4px}
+.area-head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:18px;align-items:center;margin-bottom:22px}
+.mono-badge{width:58px;height:58px;border-radius:16px;display:grid;place-items:center;font-family:var(--f-display);font-weight:800;font-size:22px;color:var(--paper);background:var(--ink)}
+.area-head h3{font-size:clamp(22px,2.6vw,28px);font-weight:800}
+.area-head p{color:var(--muted);font-size:15px;margin-top:2px}
+.area-count{font-size:13px;font-weight:700;color:var(--muted);text-align:right;white-space:nowrap}
+.area-count b{color:var(--jade-ink)}.area-count i{font-style:normal;color:var(--maize-ink)}
+@media (max-width:640px){.area-head{grid-template-columns:auto minmax(0,1fr)}.area-count{grid-column:1/-1;text-align:left}}
+.items{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.item{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 14px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 16px 16px 18px;min-width:0}
+.item::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:0 3px 3px 0}
+.item.s::before{background:var(--jade)}.item.a::before{background:var(--maize)}
+.item .meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;grid-column:1/2}
+.item h4{font-size:16px;font-weight:700;margin:0;grid-column:1/2;font-family:var(--f-body)}
+.item p{font-size:14px;color:var(--muted);grid-column:1/-1}
+.item .slug{font-family:var(--f-mono);font-size:11.5px;color:var(--muted)}
+.item.s .tag{color:var(--jade-ink)}.item.s .tag::before{background:var(--jade)}
+.item.a .tag{color:var(--maize-ink)}.item.a .tag::before{background:var(--maize);border-radius:50%}
+.pick{grid-column:2;grid-row:1/3;align-self:start;border:1px solid var(--line);background:var(--paper);border-radius:9px;padding:6px 11px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+.pick:hover{border-color:var(--jade)}
+.pick[aria-pressed="true"]{background:var(--jade);border-color:var(--jade);color:#fff}
+.item.sel{border-color:var(--jade);box-shadow:0 0 0 1px var(--jade) inset}
+.empty{padding:40px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:var(--r)}
+
+.web-note{margin-top:22px;max-width:62em;color:var(--muted);font-size:15px}
+.web-note a{color:var(--jade-ink);font-weight:600}
+
+/* Comunidad */
+.third-legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin:-12px 0 22px;font-size:14px;font-weight:600;color:var(--muted)}
+.third-legend span{display:inline-flex;align-items:center;gap:8px}
+.lg{width:12px;height:12px;border-radius:4px;display:inline-block}
+.lg.auto{background:var(--jade)}.lg.opt{background:transparent;border:2px solid var(--muted)}
+.third-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+@media (max-width:420px){.third-grid{grid-template-columns:1fr}}
+.tp{position:relative;display:flex;flex-direction:column;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;min-width:0;overflow:hidden}
+.tp.auto{border-color:color-mix(in srgb,var(--jade) 45%,var(--line))}
+.tp.auto::after{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:var(--jade)}
+.tp.sel{border-color:var(--jade);box-shadow:0 0 0 1px var(--jade) inset}
+.tp-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.tp-id{display:flex;gap:12px;align-items:center;min-width:0}
+.tp-mark{flex:none;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-family:var(--f-display);font-weight:800;font-size:17px;color:var(--paper);background:var(--ink)}
+.tp h3{font-size:21px;font-weight:800;letter-spacing:-.01em}
+.tp .by{font-size:13px;color:var(--muted)}
+.tp .by b{color:var(--ink);font-weight:700}
+.tp p{font-size:15px;color:var(--muted)}
+.badges{display:flex;flex-wrap:wrap;gap:6px}
+.bdg{font-size:11.5px;font-weight:700;border-radius:999px;padding:3px 9px;background:var(--paper-2);color:var(--muted)}
+.bdg.auto{background:var(--jade-soft);color:var(--jade-ink)}
+.bdg.lvl-adv{background:var(--maize-soft);color:var(--maize-ink)}
+.bdg.lvl-acc{background:color-mix(in srgb,var(--rose) 16%,transparent);color:var(--rose)}
+.uses{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px;font-size:13.5px}
+.uses li{display:flex;gap:8px;align-items:baseline}
+.uses li::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--jade);transform:translateY(-1px)}
+.uses code{font-size:12px;color:var(--ink)}
+.needs{font-size:13px;color:var(--ink);background:var(--paper);border-radius:10px;padding:9px 11px}
+.credit{margin-top:auto;display:flex;flex-direction:column;align-items:flex-start;gap:4px;border-top:1px dashed var(--line);padding-top:12px;font-size:12.5px;color:var(--muted)}
+.credit a{font-family:var(--f-mono);font-size:12px;color:var(--jade-ink);text-decoration:none;word-break:break-all}
+.credit a:hover{text-decoration:underline}
+.tp .pick{grid-column:auto;grid-row:auto;flex:none}
+
+/* Reglas */
+.rules{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+@media (max-width:960px){.rules{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.rules{grid-template-columns:1fr}}
+.rule{border-top:3px solid var(--ink);padding-top:16px;display:flex;flex-direction:column;gap:8px}
+.rule h3{font-size:19px;font-weight:700}
+.rule p{color:var(--muted);font-size:15px}
+
+/* Bandeja de selección */
+.tray{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--hero);color:var(--hero-ink);box-shadow:0 -12px 30px -18px rgba(0,0,0,.5);padding-bottom:env(safe-area-inset-bottom,0px);transform:translateY(110%);transition:transform .25s ease}
+.tray.show{transform:none}
+.tray-in{display:flex;align-items:center;gap:14px;padding-block:14px;flex-wrap:wrap}
+.tray-count{font-family:var(--f-display);font-weight:700;font-size:17px}
+.tray-count span{color:#F0B640}
+.tray-pre{flex:1 1 260px;min-width:0;font-family:var(--f-mono);font-size:12px;color:var(--hero-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.btn-ghost{background:transparent;color:var(--hero-ink);border:1px solid rgba(255,255,255,.25)}
+.btn-ghost:hover{background:rgba(255,255,255,.08)}
+.toast{position:fixed;left:50%;bottom:calc(110px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:10px;font-weight:600;font-size:14px;pointer-events:none;transition:all .2s ease;z-index:30}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.prompt-box{width:100%;display:none}
+.prompt-box.open{display:block}
+.prompt-box textarea{width:100%;min-height:130px;resize:vertical;font-family:var(--f-mono);font-size:12.5px;background:#06100C;color:#D9F5EA;border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:12px}
+
+footer{background:var(--hero);color:var(--hero-muted);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:28px}
+footer strong{color:var(--hero-ink);font-family:var(--f-display)}
+</style>
+
+<header class="top">
+  <div class="tejido" aria-hidden="true"></div>
+  <div class="wrap">
+    <nav class="nav" aria-label="Principal">
+      <a class="brand" href="#inicio">
+        <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><rect x="1" y="7" width="28" height="21" rx="5" fill="#F0B640"/><rect x="9" y="2" width="12" height="8" rx="3" fill="none" stroke="#3CC79C" stroke-width="3"/><rect x="1" y="14" width="28" height="4" fill="#0F2A21" opacity=".25"/></svg>
+        Pack IA desde 0
+      </a>
+      <ul>
+        <li><a href="#que-es">Skill o agente</a></li>
+        <li><a href="#instalar">Cómo se instala</a></li>
+        <li><a href="#general">General</a></li>
+        <li><a href="#especializados">Especializados</a></li>
+        <li><a href="#comunidad">Comunidad</a></li>
+      </ul>
+    </nav>
+    <div class="hero" id="inicio">
+      <div>
+        <div class="eyebrow">Campuslands Guatemala · Taller IA desde 0</div>
+        <h1>Tu IA llega con las <em>herramientas puestas.</em></h1>
+        <p class="lead">Un solo paquete con skills y agentes para el trabajo de todos los días. Lo general se instala solo; lo de tu área lo eliges tú, sabiendo antes qué hace cada uno.</p>
+        <div class="install">
+          <label for="cmd">Pega esto en tu IA</label>
+          <div class="install-row">
+            <div class="install-cmd" id="cmd">Instala el pack <b>github.com/anndreloopez012/pack-skills-agents-campuslands-ia-0</b></div>
+            <button class="btn btn-maize" id="copyCmd" type="button">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+              Copiar
+            </button>
+          </div>
+        </div>
+        <div class="stats" id="stats"></div>
+      </div>
+      <div class="chat" aria-label="Ejemplo de instalación en una conversación">
+        <div class="chat-head"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>Tu IA · instalación</div>
+        <div class="msgs">
+          <div class="msg me">Instala el pack github.com/anndreloopez012/pack-skills-agents-campuslands-ia-0</div>
+          <div class="msg ai"><span class="ok">Listo el paquete general:</span> <span id="chatGen">12 skills y 5 agentes</span> instalados. Ya puedes pedirme «ordena mi bandeja» o «resume este documento en una página».</div>
+          <div class="msg ai">¿En qué áreas trabajas? Elige las que quieras:
+            <div class="chips"><span class="on">Contabilidad</span><span>Ventas</span><span class="on">Docencia</span><span>Datos y BI</span><span>+6 más</span></div>
+          </div>
+          <div class="msg me">Contabilidad y docencia</div>
+          <div class="msg ai">Estas son las de Contabilidad. Te digo qué hace cada una; marca las que quieras instalar…<br><span class="typing" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="que-es">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><div class="eyebrow">Antes de instalar</div><h2>Hay dos tipos de herramienta en el paquete</h2></div>
+        <p>Las dos se instalan en la misma IA que ya usas. La diferencia es quién da el primer paso: a la skill la llamas tú; el agente trabaja solo cada cierto tiempo.</p>
+      </div>
+      <div class="versus">
+        <article class="vs skill">
+          <span class="kind">Skill</span>
+          <h3>Una receta que tu IA sigue cuando se la pides</h3>
+          <p>Le enseña a tu IA a hacer una tarea siempre de la misma forma y con tu formato. Tú la llamas cuando la necesitas.</p>
+          <ol class="recipe">
+            <li><b>1</b>Recibe lo que le pegas</li>
+            <li><b>2</b>Sigue los pasos de la receta</li>
+            <li><b>3</b>Te entrega el resultado con el formato de siempre</li>
+          </ol>
+          <p class="ex"><strong>Ejemplo:</strong> le pegas 15 correos y le dices «ordena mi bandeja». Te los devuelve clasificados y con borradores de respuesta.</p>
+        </article>
+        <article class="vs agent">
+          <span class="kind">Agente</span>
+          <h3>Un encargado que trabaja solo, con horario</h3>
+          <p>Hace una tarea cada día, semana o mes sin que se lo recuerdes, y te deja el resultado listo. Lo que sale hacia afuera siempre lo apruebas tú.</p>
+          <div class="week" aria-label="Ejemplo: un agente que trabaja lunes, miércoles y viernes">
+            <div class="day on">L<i></i></div><div class="day">M<i></i></div><div class="day on">M<i></i></div><div class="day">J<i></i></div><div class="day on">V<i></i></div><div class="day">S<i></i></div><div class="day">D<i></i></div>
+          </div>
+          <p class="ex"><strong>Ejemplo:</strong> cada viernes el agente de cierre de semana te dice qué se logró, qué quedó pendiente y qué priorizar el lunes.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="instalar" class="band">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><div class="eyebrow">Cómo se instala</div><h2>Un nombre, una conversación</h2></div>
+        <p>Funciona en la IA que uses en el taller: Claude, ChatGPT o Gemini. No hay que descargar nada a mano ni configurar archivos.</p>
+      </div>
+      <ol class="steps">
+        <li class="step"><span class="n">1</span><h3>Pegas el nombre del paquete</h3><p>Escribes en tu IA «Instala el pack» con la dirección del repositorio en GitHub.</p></li>
+        <li class="step"><span class="auto">Automático</span><span class="n">2</span><h3>Se instala lo general</h3><p id="stepGen">Las skills y los agentes generales quedan listos sin preguntarte nada.</p></li>
+        <li class="step"><span class="ask">Te pregunta</span><span class="n">3</span><h3>Eliges tus áreas</h3><p id="stepAreas">Tu IA te muestra las áreas disponibles y marcas las que tienen que ver con tu trabajo.</p></li>
+        <li class="step"><span class="ask">Te pregunta</span><span class="n">4</span><h3>Escoges qué instalar</h3><p>De cada área te lista sus skills y agentes con lo que hace cada uno. Instala solo los que elijas.</p></li>
+      </ol>
+      <p class="web-note">¿Usas Claude, ChatGPT o Gemini solo en la web, sin programas instalados? Abre la carpeta <a href="https://github.com/anndreloopez012/pack-skills-agents-campuslands-ia-0/tree/main/skills" target="_blank" rel="noopener">skills del repositorio</a>, copia el texto de la skill que quieras y pégalo como instrucciones de un Proyecto de Claude o ChatGPT, de un GPT o de un Gem de Gemini.</p>
+    </div>
+  </section>
+
+  <section id="general">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><div class="eyebrow">Paquete general · se instala solo</div><h2>Lo que le sirve a cualquiera que trabaje</h2></div>
+        <p>Correo, reuniones, documentos, investigación, organización y contenido con IA. Son las tareas que aparecieron en el trabajo de todo el grupo, sin importar el oficio.</p>
+      </div>
+      <div class="group-title">Skills generales <span class="count" id="cGS"></span></div>
+      <div class="grid" id="genSkills"></div>
+      <div class="group-title">Agentes generales <span class="count" id="cGA"></span></div>
+      <div class="grid" id="genAgents"></div>
+    </div>
+  </section>
+
+  <section id="especializados" class="band" style="padding-top:64px">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><div class="eyebrow">Especializados · tú eliges</div><h2>Herramientas para tu área de trabajo</h2></div>
+        <p>Marca con «Agregar» lo que te interese. Abajo se arma el pedido exacto para pegarlo en tu IA, o puedes elegirlos directamente durante la instalación.</p>
+      </div>
+    </div>
+    <div class="toolbar">
+      <div class="wrap toolbar-in">
+        <div class="areas" id="areaChips" role="group" aria-label="Filtrar por área"></div>
+        <div class="filters">
+          <label class="search" for="q">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true" style="color:var(--muted)"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input id="q" type="search" placeholder="Buscar: planilla, cotización, Power BI…" autocomplete="off">
+          </label>
+          <div class="seg" role="group" aria-label="Tipo">
+            <button type="button" data-type="all" aria-pressed="true">Todo</button>
+            <button type="button" data-type="s" aria-pressed="false">Skills</button>
+            <button type="button" data-type="a" aria-pressed="false">Agentes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wrap" id="areasList"></div>
+  </section>
+
+  <section id="comunidad">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><div class="eyebrow">De la comunidad · con crédito a sus autores</div><h2>Lo mejor que ya existe, incluido en el paquete</h2></div>
+        <p>Herramientas abiertas hechas por otras personas y empresas. Se instalan desde su repositorio original, sin modificarlas, y el crédito y la licencia siguen siendo de quien las creó.</p>
+      </div>
+      <div class="third-legend">
+        <span><i class="lg auto"></i>Se instala con el general</span>
+        <span><i class="lg opt"></i>Opcional, se elige por área</span>
+      </div>
+      <div class="third-grid" id="thirdGrid"></div>
+    </div>
+  </section>
+
+  <section id="reglas">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><div class="eyebrow">Reglas del paquete</div><h2>Cómo trabajan todas las herramientas</h2></div>
+        <p>Valen para cada skill y cada agente, generales o especializados.</p>
+      </div>
+      <div class="rules">
+        <div class="rule"><h3>Tú apruebas</h3><p>Nada se envía, publica ni paga sin tu visto bueno. Los agentes preparan; tú decides.</p></div>
+        <div class="rule"><h3>Con fuentes</h3><p>Todo dato investigado trae de dónde salió y su fecha. Lo que no se pudo confirmar se marca como tal.</p></div>
+        <div class="rule"><h3>Datos cuidados</h3><p>Nombres, DPI, NIT, cuentas y datos de clientes se reemplazan por etiquetas antes de trabajarlos. Si tu empresa tiene reglas sobre IA, esas mandan.</p></div>
+        <div class="rule"><h3>En tu idioma</h3><p>Todo en español de Guatemala, con quetzales, leyes y fechas locales, y sin frases de robot.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span><strong>pack-skills-agents-campuslands-ia-0</strong> · Taller IA desde 0</span>
+    <span>Campuslands Guatemala</span>
+  </div>
+</footer>
+
+<div class="tray" id="tray" role="region" aria-label="Tu selección">
+  <div class="wrap tray-in">
+    <div class="tray-count" id="trayCount"></div>
+    <div class="tray-pre" id="trayPre"></div>
+    <button class="btn btn-ghost" type="button" id="toggleBox">Ver pedido</button>
+    <button class="btn btn-ghost" type="button" id="clearSel">Vaciar</button>
+    <button class="btn btn-maize" type="button" id="copySel">Copiar pedido</button>
+    <div class="prompt-box" id="promptBox"><label for="promptText" class="eyebrow" style="color:var(--hero-muted);display:block;margin-bottom:8px">Pega esto en tu IA</label><textarea id="promptText" readonly></textarea></div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const CATALOGO = {"pack":{"nombre":"pack-skills-agents-campuslands-ia-0","titulo":"Pack IA desde 0","autor":"Campuslands Guatemala","version":"0.1.0","repo":"anndreloopez012/pack-skills-agents-campuslands-ia-0"},"general":{"skills":[{"slug":"inbox-triage","nombre":"Ordena mi bandeja","descripcion":"Clasifica los correos y mensajes que le pegues en urgente, hoy, esta semana o solo leer, y te deja borradores de respuesta.","pidelo":"Ordena estos 15 correos y dime cuáles contesto primero."},{"slug":"process-mapper","nombre":"Documenta mi proceso","descripcion":"Convierte «lo que hago» en una ficha con pasos, responsables, decisiones y plazos. Es el primer paso para crear cualquier agente propio.","pidelo":"Así hago una cotización, de principio a fin. Documéntalo."},{"slug":"source-researcher","nombre":"Investiga con fuentes","descripcion":"Busca información y entrega cada dato con su fuente y fecha. Separa lo confirmado de lo que no se pudo verificar.","pidelo":"Investiga los requisitos para exportar café a Canadá."},{"slug":"one-pager","nombre":"Resumen de una página","descripcion":"Reduce un documento largo a los 5 puntos clave, su impacto y la decisión que se necesita tomar.","pidelo":"Resume este informe de 40 páginas para la gerencia."},{"slug":"meeting-kit","nombre":"Reuniones al grano","descripcion":"Antes: agenda y preguntas clave. Después: minuta con acuerdos, responsables y fechas, a partir de tus notas.","pidelo":"Con estas notas arma la minuta y los acuerdos."},{"slug":"pro-writer","nombre":"Redacta profesional","descripcion":"Correos, oficios, cartas y mensajes con el tono correcto: formal, cordial o directo, en español de Guatemala.","pidelo":"Redacta un oficio pidiendo prórroga de 10 días hábiles."},{"slug":"doc-to-presentation","nombre":"Del documento a la presentación","descripcion":"Convierte un PDF, libro o tus notas en diapositivas con estructura, ejemplos y notas para quien presenta.","pidelo":"Haz una presentación de 10 diapositivas de este capítulo."},{"slug":"spreadsheet-helper","nombre":"Excel sin miedo","descripcion":"Fórmulas, tablas dinámicas, limpieza de datos y gráficos explicados paso a paso, en Excel o Google Sheets.","pidelo":"Necesito sumar ventas por mes y por vendedor."},{"slug":"weekly-planner","nombre":"Organiza mi semana","descripcion":"Ordena tus pendientes por urgencia e importancia y los acomoda en tu agenda real, dejando espacio para imprevistos.","pidelo":"Tengo estas 20 tareas y 3 reuniones. Arma mi semana."},{"slug":"prompt-coach","nombre":"Mejora mi pedido","descripcion":"Revisa lo que le pides a la IA, te dice qué le falta (contexto, formato, ejemplo) y te devuelve una versión mejor.","pidelo":"¿Cómo mejoro este pedido para que no me dé algo genérico?"},{"slug":"human-voice","nombre":"Suena a persona","descripcion":"Quita frases de robot, relleno y adjetivos vacíos de cualquier texto antes de enviarlo o publicarlo.","pidelo":"Haz que este correo suene natural, como lo escribiría yo."},{"slug":"data-shield","nombre":"Protege tus datos","descripcion":"Antes de trabajar un documento, reemplaza nombres, DPI, NIT, cuentas y montos sensibles por etiquetas y te avisa qué no conviene compartir.","pidelo":"Quita los datos personales de este listado antes de analizarlo."},{"slug":"google-flow-veo-director","nombre":"Director de Veo y Flow","descripcion":"Convierte tu idea en prompts de video para Veo y Flow: escena, cámara, luz, movimiento y diálogo, y encadena varias tomas en una historia.","pidelo":"Haz un video de 16 segundos de mi café en Antigua para Instagram."},{"slug":"image-prompt-director","nombre":"Imágenes con IA","descripcion":"Prompts para crear imágenes en Gemini o ChatGPT: estilo, encuadre, texto legible y una versión para cada red.","pidelo":"Crea la portada de mi carrusel sobre cómo ahorrar en quetzales."}],"agentes":[{"slug":"morning-brief","nombre":"Resumen de la mañana","frecuencia":"Diario","descripcion":"Al empezar el día te entrega lo urgente, tus reuniones, lo que vence hoy y las 3 cosas que no pueden quedar sin hacer."},{"slug":"follow-up-tracker","nombre":"Vigía de pendientes","frecuencia":"Diario","descripcion":"Lleva la lista de lo que esperas de otros (respuestas, cotizaciones, firmas) y te avisa cuándo insistir, con el mensaje ya redactado."},{"slug":"weekly-review","nombre":"Cierre de semana","frecuencia":"Semanal","descripcion":"Cada viernes: qué se logró, qué quedó pendiente y qué conviene priorizar la próxima semana."},{"slug":"topic-watch","nombre":"Vigía de temas","frecuencia":"Semanal","descripcion":"Sigue los temas que elijas (tu industria, leyes, tecnología) y te manda lo nuevo con su fuente y por qué te importa."},{"slug":"learning-scout","nombre":"Buscador de formación","frecuencia":"Mensual","descripcion":"Busca cursos, talleres, diplomados y becas según tu perfil, tu presupuesto y tu horario."},{"slug":"content-director","nombre":"Director de contenido","frecuencia":"Semanal","descripcion":"Propone 3 piezas (publicación, carrusel y video corto) con guion y prompts listos para Veo e imágenes. Nada se publica sin tu aprobación."}]},"areas":[{"id":"contabilidad","mono":"CA","color":"#0A7558","nombre":"Contabilidad, auditoría e impuestos","para":"Para contadores, auditores y quien lleva las cuentas en Guatemala.","skills":[{"slug":"journal-entries","nombre":"Partidas contables","descripcion":"Registra compras, ventas, ingresos y gastos como partidas de diario, con sus cuentas y la explicación de cada una."},{"slug":"bank-reconciliation","nombre":"Conciliación bancaria","descripcion":"Cruza el estado de cuenta con tus libros, encuentra las diferencias y arma la conciliación."},{"slug":"financial-statements","nombre":"Estados financieros","descripcion":"Balance general, estado de resultados y flujo de efectivo con sus notas, a partir de tus saldos."},{"slug":"financial-ratios","nombre":"Ratios con interpretación","descripcion":"Calcula liquidez, endeudamiento y rentabilidad y explica en palabras qué dice cada uno."},{"slug":"tax-returns-gt","nombre":"IVA, ISR e ISO","descripcion":"Calcula y revisa las declaraciones con la base legal guatemalteca y señala lo que hay que documentar."},{"slug":"payroll-igss","nombre":"Planilla e IGSS","descripcion":"Sueldos, prestaciones, cuotas del IGSS, bono 14, aguinaldo e indemnización, con el detalle del cálculo."},{"slug":"audit-planning","nombre":"Planificación de auditoría","descripcion":"Materialidad, matriz de riesgos y carta de planificación para arrancar un encargo."},{"slug":"audit-letters","nombre":"Cartas de auditoría","descripcion":"Carta a la gerencia, carta de representación y borrador del informe o dictamen, con hallazgos ordenados."},{"slug":"internal-control","nombre":"Control interno COSO","descripcion":"Evalúa controles, arqueos y procesos de compras, ventas, cobros y pagos; propone recomendaciones."},{"slug":"sat-response","nombre":"Requerimientos de la SAT","descripcion":"Ordena lo que pide el requerimiento, lista los documentos de soporte y redacta la respuesta."},{"slug":"ive-forms","nombre":"Formularios IVE","descripcion":"Prepara la información que piden los formularios de la IVE y revisa que esté completa."}],"agentes":[{"slug":"fiscal-calendar","nombre":"Calendario fiscal","frecuencia":"Mensual","descripcion":"Fechas de IVA, ISR, ISO e IGSS del mes y la lista de lo que falta por cada empresa o cliente."},{"slug":"sat-watch","nombre":"Vigía de la SAT","frecuencia":"Semanal","descripcion":"Cambios de normativa, resoluciones y criterios de la SAT, con lo que significan para tus clientes."},{"slug":"audit-workpapers","nombre":"Papeles de trabajo","frecuencia":"Al iniciar un encargo","descripcion":"Arma el índice y las cédulas de trabajo de una auditoría a partir de la información del cliente."}]},{"id":"ventas","mono":"VE","color":"#B5473A","nombre":"Ventas y atención al cliente","para":"Para quien cotiza, vende, factura y da servicio técnico.","skills":[{"slug":"quote-builder","nombre":"Cotizaciones rápidas","descripcion":"De un mensaje de WhatsApp o un correo a una cotización completa con precios, plazos y condiciones."},{"slug":"invoice-draft","nombre":"Factura y entrega","descripcion":"Prepara los datos de la factura y la nota de entrega, y revisa que todo cuadre antes de emitir."},{"slug":"quick-replies","nombre":"Respuestas rápidas","descripcion":"Biblioteca de respuestas para las preguntas que más te hacen, listas para WhatsApp Business."},{"slug":"call-script","nombre":"Guion de llamada","descripcion":"Lo que vas a decir, las preguntas clave y cómo cerrar, para llamadas de venta o de cobro."},{"slug":"objection-handler","nombre":"Respuesta a objeciones","descripcion":"«Está caro», «lo voy a pensar»: respuestas honestas para cada objeción común."},{"slug":"visit-report","nombre":"Reporte de visita técnica","descripcion":"De tus notas o un audio a un informe con hallazgos, repuestos necesarios y siguiente paso."}],"agentes":[{"slug":"quotes-followup","nombre":"Seguimiento de cotizaciones","frecuencia":"Diario","descripcion":"Revisa qué cotizaciones no tienen respuesta y te deja listo el mensaje para darles seguimiento."},{"slug":"sales-summary","nombre":"Resumen de ventas","frecuencia":"Semanal","descripcion":"Ventas cerradas, pendientes de cobro y clientes que hace tiempo no compran."}]},{"id":"marketing","mono":"MK","color":"#C98A0C","nombre":"Marketing, redes y marca personal","para":"Para quien publica en LinkedIn o Instagram, por su marca o por la de su empresa.","skills":[{"slug":"content-calendar","nombre":"Calendario de contenido","descripcion":"Plan de publicaciones del mes por red, formato, tema y objetivo."},{"slug":"linkedin-post","nombre":"Publicación de LinkedIn","descripcion":"Escribe publicaciones con gancho, una idea clara y cierre, en tu voz."},{"slug":"carousel-builder","nombre":"Carrusel","descripcion":"Texto por diapositiva, portada y llamado a la acción, adaptado a Instagram y LinkedIn."},{"slug":"reel-script","nombre":"Guion de reel","descripcion":"Guion de 30 a 60 segundos con lo que dices, lo que se ve y el texto en pantalla."},{"slug":"profile-optimizer","nombre":"Perfil que atrae","descripcion":"Titular, biografía y sección «acerca de» para LinkedIn o Instagram."},{"slug":"brand-voice","nombre":"Voz de marca","descripcion":"Una guía de tono con las palabras que sí y las que no, para que todo suene igual."},{"slug":"portfolio-builder","nombre":"Portafolio de casos","descripcion":"Convierte tu experiencia en casos con problema, lo que hiciste y el resultado."}],"agentes":[{"slug":"editorial-strategist","nombre":"Estratega editorial","frecuencia":"Semanal","descripcion":"Revisa tus ideas pendientes, tendencias y resultados; propone el calendario de la semana y espera tu aprobación."},{"slug":"content-repurposer","nombre":"Reciclador de contenido","frecuencia":"Semanal","descripcion":"Toma tu mejor publicación y la convierte en carrusel, reel, texto corto e historia."},{"slug":"metrics-review","nombre":"Lectura de resultados","frecuencia":"Mensual","descripcion":"Lee tus cifras y te dice qué temas y formatos funcionaron y qué repetir."}]},{"id":"contenido-ia","mono":"IA","color":"#C2416B","nombre":"Contenido con IA: imagen, video y voz","para":"Para quien quiere crear sus propios videos e imágenes con Veo, Flow, Gemini o ChatGPT.","skills":[{"slug":"video-prompt-engineering","nombre":"Prompts para cualquier plataforma","descripcion":"Adapta un mismo prompt de video a Veo, Kling, Runway o Sora, con cámara, luz y movimiento, y arregla el que no salió."},{"slug":"storyboard","nombre":"Guion gráfico","descripcion":"Divide tu idea en escenas con lo que se ve, lo que se dice y la duración de cada toma."},{"slug":"character-consistency","nombre":"Mismo personaje","descripcion":"Ficha del personaje y frases fijas para que salga igual en todas las imágenes y videos."},{"slug":"video-continuity","nombre":"Continuidad entre clips","descripcion":"Encadena clips de 8 segundos sin que cambien la ropa, la luz o el lugar entre una toma y otra."},{"slug":"ugc-ad","nombre":"Anuncio tipo testimonio","descripcion":"Guion y prompts de un video estilo cliente real que habla de tu producto."},{"slug":"voiceover-script","nombre":"Locución y subtítulos","descripcion":"Texto de la voz en off con sus tiempos y los subtítulos listos."},{"slug":"cover-designer","nombre":"Portadas y miniaturas","descripcion":"Prompts para portadas de reels, miniaturas y la primera diapositiva del carrusel."}],"agentes":[{"slug":"video-series","nombre":"Productor de series cortas","frecuencia":"Semanal","descripcion":"Planea una serie de 3 a 5 videos cortos con guion, prompts para Veo y textos para publicar; espera tu aprobación."},{"slug":"trend-to-video","nombre":"De tendencia a video","frecuencia":"Semanal","descripcion":"Toma lo que está sonando en tu tema y te lo entrega como idea de video con guion y prompts listos."}]},{"id":"docencia","mono":"DC","color":"#3D6FB0","nombre":"Docencia y capacitación","para":"Para catedráticos, maestros, facilitadores y quien da capacitaciones.","skills":[{"slug":"interactive-class","nombre":"Clase interactiva","descripcion":"Convierte un tema del libro en una clase con dinámicas, preguntas y actividades."},{"slug":"quiz-game","nombre":"Evaluación con juego","descripcion":"Trivias, crucigramas, sopas de letras y retos para validar lo aprendido."},{"slug":"exam-grader","nombre":"Corrección con rúbrica","descripcion":"Revisa respuestas contra tu rúbrica y propone retroalimentación. La nota la decides tú."},{"slug":"training-designer","nombre":"Capacitación para adultos","descripcion":"Objetivos, ejercicios con casos reales y evaluación a partir de mucho material de lectura."},{"slug":"study-guide","nombre":"Guía de estudio en grupo","descripcion":"Consolida materiales en guías con preguntas de reflexión para grupos de estudio."},{"slug":"video-lesson","nombre":"Guion de video-clase","descripcion":"Estructura y guion para grabar una clase corta que se entienda sola."}],"agentes":[{"slug":"class-prep","nombre":"Preparador de clases","frecuencia":"Semanal","descripcion":"Con el tema de la semana te deja la presentación, una actividad y la evaluación."},{"slug":"field-update","nombre":"Novedades de mi materia","frecuencia":"Mensual","descripcion":"Busca innovaciones y lecturas nuevas de tu materia, con fuente, para actualizar tus clases."}]},{"id":"datos","mono":"BI","color":"#6B4FA0","nombre":"Datos y BI","para":"Para quien trabaja con Excel avanzado, Power BI o People Analytics.","skills":[{"slug":"data-cleaner","nombre":"Limpieza de datos","descripcion":"Detecta duplicados, vacíos y errores, y te dice cómo corregirlos."},{"slug":"dax-helper","nombre":"Power BI y DAX","descripcion":"Medidas DAX, modelo de datos y explicación de cada fórmula."},{"slug":"dashboard-designer","nombre":"Diseño de tablero","descripcion":"Qué indicadores mostrar, con qué gráfico y en qué orden."},{"slug":"experiment-card","nombre":"Ficha de experimento","descripcion":"Problema, hipótesis, datos, método, validación, hallazgos y límites en un formato fijo."},{"slug":"people-analytics","nombre":"People Analytics","descripcion":"Rotación, ausentismo y clima con datos autorizados o de práctica."},{"slug":"data-story","nombre":"Historia con datos","descripcion":"Convierte un análisis en conclusiones claras para quien no es técnico."}],"agentes":[{"slug":"data-lab","nombre":"Laboratorio de datos","frecuencia":"Quincenal","descripcion":"Propone experimentos, los documenta con su ficha y los convierte en portafolio o contenido."},{"slug":"dataset-scout","nombre":"Buscador de datasets","frecuencia":"Mensual","descripcion":"Encuentra datos públicos con licencia clara para practicar o publicar."}]},{"id":"gestion-publica","mono":"GP","color":"#2F7F8F","nombre":"Planificación y gestión pública","para":"Para quien formula planes, presupuestos y procesos en instituciones.","skills":[{"slug":"pei-poa","nombre":"PEI y POA","descripcion":"Arma el Plan Estratégico y el Plan Operativo Anual alineados a las prioridades nacionales."},{"slug":"logical-framework","nombre":"Marco lógico","descripcion":"Árbol de problemas, objetivos e indicadores con medios de verificación."},{"slug":"budget-classifier","nombre":"Renglones presupuestarios","descripcion":"Ubica cada insumo en el catálogo del MINFIN y su renglón presupuestario."},{"slug":"iso-9001","nombre":"ISO 9001 paso a paso","descripcion":"Plantillas de levantamiento por capítulo de la norma y el cruce entre requisitos."},{"slug":"process-redesign","nombre":"Rediseño de procesos","descripcion":"Simplifica trámites, arma fichas de proceso y sus indicadores."},{"slug":"indicators","nombre":"Indicadores y tableros","descripcion":"Metas, fórmulas, fuentes y semáforo para medir resultados."},{"slug":"tdr-writer","nombre":"Términos de referencia","descripcion":"Redacta TDR y especificaciones técnicas claras para una contratación."}],"agentes":[{"slug":"plan-tracker","nombre":"Seguimiento de ejecución","frecuencia":"Mensual","descripcion":"Compara lo planificado contra lo ejecutado y avisa qué metas se están quedando atrás."},{"slug":"policy-watch","nombre":"Vigía de normativa pública","frecuencia":"Semanal","descripcion":"Nuevos acuerdos, leyes y lineamientos que afectan a tu institución, con su fuente."}]},{"id":"infraestructura","mono":"IN","color":"#5E6B3A","nombre":"Administración, edificios e infraestructura","para":"Para administradores de edificios, gerentes administrativos y de obra.","skills":[{"slug":"maintenance-checklist","nombre":"Checklist de mantenimiento","descripcion":"Por nivel y equipo: sanitarios, electricidad, climatización, bombeo y ascensores."},{"slug":"supplier-contracts","nombre":"Contratos y proveedores","descripcion":"Controla vigencias, visitas, técnicos, piezas cambiadas y evaluación del servicio."},{"slug":"ohs-compliance","nombre":"Seguridad ocupacional","descripcion":"Comités, capacitaciones y requisitos de salud y seguridad ocupacional, listos para una inspección."},{"slug":"budget-vs-actual","nombre":"Presupuesto vs ejecutado","descripcion":"Compara lo planificado con lo gastado por renglón y explica las diferencias."},{"slug":"project-control","nombre":"Control de obra","descripcion":"Avance físico y financiero, valor ganado y alertas de atraso."},{"slug":"incident-desk","nombre":"Atención de solicitudes","descripcion":"Registra, prioriza y responde las solicitudes de ocupantes y personal."}],"agentes":[{"slug":"maintenance-scheduler","nombre":"Programador de mantenimiento","frecuencia":"Semanal","descripcion":"Te dice qué mantenimiento toca esta semana y qué proveedor debe venir."},{"slug":"contract-deadlines","nombre":"Vencimientos de contratos","frecuencia":"Mensual","descripcion":"Contratos, licencias y pólizas por vencer, con tiempo para renovar."}]},{"id":"direccion","mono":"DI","color":"#8A4B6E","nombre":"Dirección y negocios","para":"Para directores, gerentes y quien toma decisiones con la agenda llena.","skills":[{"slug":"negotiation-brief","nombre":"Preparar una negociación","descripcion":"Tu posición, la de la otra parte, márgenes y argumentos en una página."},{"slug":"decision-memo","nombre":"Memo de decisión","descripcion":"Opciones, riesgos y recomendación para presentar a un comité."},{"slug":"strategy-one-pager","nombre":"Estrategia en una página","descripcion":"Objetivo, acciones, responsables e indicadores de una estrategia."},{"slug":"market-brief","nombre":"Panorama de mercado","descripcion":"Tendencias y riesgos de un sector con fuentes. Es información para decidir, no una recomendación de inversión."},{"slug":"team-update","nombre":"Mensaje a mi equipo","descripcion":"Comunica cambios, metas o reconocimientos con claridad y buen tono."},{"slug":"delegation-planner","nombre":"Qué delego","descripcion":"Revisa tu agenda y separa lo que solo tú puedes hacer de lo que puedes delegar."}],"agentes":[{"slug":"afternoon-digest","nombre":"Resumen de la tarde","frecuencia":"Diario","descripcion":"Agrupa por tema los correos no urgentes para leerlos en 15 minutos y no de noche."},{"slug":"market-weekly","nombre":"Panorama semanal","frecuencia":"Semanal","descripcion":"Los 5 temas de mercados, tecnología, salud y energía que más pesan esta semana, con fuentes."}]},{"id":"emprendimiento","mono":"EM","color":"#C25E2A","nombre":"Emprendimiento y consultoría","para":"Para quien tiene su negocio, vende un producto u ofrece sus servicios.","skills":[{"slug":"inventory-control","nombre":"Inventario y materia prima","descripcion":"Entradas, salidas y existencias, con aviso de lo que se está acabando."},{"slug":"product-costing","nombre":"Costeo y precio","descripcion":"Cuánto te cuesta producir y a qué precio vender para ganar."},{"slug":"cash-close","nombre":"Ventas, pagos y caja","descripcion":"Cuadra ventas, cobros, pagos y banco del período."},{"slug":"production-planner","nombre":"Plan de producción","descripcion":"Qué producir, cuánto y cuándo según tus pedidos."},{"slug":"service-offer","nombre":"Oferta de servicios","descripcion":"Qué ofreces, a quién, en qué paquetes y a qué precio. Ideal para consultores."},{"slug":"proposal-builder","nombre":"Propuesta comercial","descripcion":"Propuesta con alcance, entregables, plazos y precio, lista para enviar."}],"agentes":[{"slug":"monthly-close","nombre":"Cierre del mes","frecuencia":"Mensual","descripcion":"Ventas, gastos, ganancia y lo que quedó por cobrar o pagar."},{"slug":"restock-alert","nombre":"Aviso de reposición","frecuencia":"Semanal","descripcion":"Te avisa qué materia prima o producto reponer y cuánto pedir."}]},{"id":"personal","mono":"YO","color":"#4C7A5A","nombre":"Desarrollo personal y bienestar","para":"Para aprender, cuidarte y planear lo que haces fuera del trabajo.","skills":[{"slug":"english-tutor","nombre":"Tutor de inglés","descripcion":"Conversa contigo, corrige con explicación y adapta el nivel."},{"slug":"workout-planner","nombre":"Rutina de ejercicio","descripcion":"Rutina por días según tu objetivo, tu tiempo y tu gimnasio."},{"slug":"travel-planner","nombre":"Itinerario de viaje","descripcion":"Ruta, costos, clima, eventos, gastronomía y paisajes con fuentes confiables."},{"slug":"habit-tracker","nombre":"Hábitos","descripcion":"Define hábitos pequeños y lleva el registro sin culpa."},{"slug":"music-practice","nombre":"Práctica musical","descripcion":"Plan de práctica con partituras, respiración y vocalización."},{"slug":"cv-builder","nombre":"CV y perfil profesional","descripcion":"Convierte tu experiencia en un CV y un perfil que se entiendan rápido."}],"agentes":[{"slug":"english-daily","nombre":"Práctica de inglés","frecuencia":"Diario","descripcion":"Un ejercicio corto cada día según tu nivel y tus errores frecuentes."},{"slug":"trip-scout","nombre":"Explorador de viajes","frecuencia":"Mensual","descripcion":"Destinos, conciertos, festivales y eventos con fechas y costos aproximados."}]}],"terceros":[{"id":"superpowers","mark":"SP","nombre":"Superpowers","autor":"Jesse Vincent","repo":"obra/superpowers","web":null,"licencia":"MIT","lugar":"general","nivel":"Para todos","que":"Le da método a tu IA: antes de hacer algo te hace preguntas, arma un plan por pasos y revisa el resultado antes de decir «listo».","usos":[{"nombre":"brainstorming","uso":"aterriza una idea con preguntas"},{"nombre":"writing-plans","uso":"plan paso a paso"},{"nombre":"executing-plans","uso":"avanza el plan tarea por tarea"},{"nombre":"verification-before-completion","uso":"revisa antes de entregar"}],"requiere":null,"skills":[{"slug":"brainstorming","ruta":"skills/brainstorming"},{"slug":"writing-plans","ruta":"skills/writing-plans"},{"slug":"executing-plans","ruta":"skills/executing-plans"},{"slug":"verification-before-completion","ruta":"skills/verification-before-completion"}]},{"id":"agent-skills","mark":"AO","nombre":"Agent Skills","autor":"Addy Osmani","repo":"addyosmani/agent-skills","web":null,"licencia":"MIT","lugar":"general","nivel":"Para todos","que":"Para pensar antes de hacer: afina una idea, deja que la IA te entreviste y parte un proyecto grande en tareas pequeñas.","usos":[{"nombre":"idea-refine","uso":"afina una idea"},{"nombre":"interview-me","uso":"la IA te entrevista para entender qué quieres"},{"nombre":"planning-and-task-breakdown","uso":"divide el trabajo en tareas"},{"nombre":"documentation-and-adrs","uso":"deja documentado lo que se decidió"}],"requiere":null,"skills":[{"slug":"idea-refine","ruta":"skills/idea-refine"},{"slug":"interview-me","ruta":"skills/interview-me"},{"slug":"planning-and-task-breakdown","ruta":"skills/planning-and-task-breakdown"},{"slug":"documentation-and-adrs","ruta":"skills/documentation-and-adrs"}]},{"id":"diagram-design","mark":"DD","nombre":"Diagram Design","autor":"Cathryn Lavery","repo":"cathrynlavery/diagram-design","web":null,"licencia":"MIT","lugar":"general","nivel":"Para todos","que":"Diagramas limpios y con estilo editorial: flujos de proceso, organigramas, líneas de tiempo y mapas. Combina con «Documenta mi proceso».","usos":[{"nombre":"flujos","uso":"procesos por carriles"},{"nombre":"organigramas","uso":"quién hace qué"},{"nombre":"líneas de tiempo","uso":"proyectos e historia"},{"nombre":"exportar","uso":"imagen lista para presentar"}],"requiere":null,"skills":[{"slug":"diagram-design","ruta":"skills/diagram-design"}]},{"id":"anthropic-skills","mark":"AN","nombre":"Documentos de oficina","autor":"Anthropic","repo":"anthropics/skills","web":null,"licencia":"Apache-2.0","lugar":"general","nivel":"Para todos","que":"Crea y edita archivos reales de Word, Excel, PowerPoint y PDF, con formato, tablas y fórmulas. Trae el creador de skills para que hagas las tuyas.","usos":[{"nombre":"docx","uso":"Word"},{"nombre":"xlsx","uso":"Excel con fórmulas"},{"nombre":"pptx","uso":"PowerPoint"},{"nombre":"pdf","uso":"leer, unir y llenar PDF"},{"nombre":"skill-creator","uso":"crea tus propias skills"}],"requiere":null,"skills":[{"slug":"docx","ruta":"skills/docx"},{"slug":"xlsx","ruta":"skills/xlsx"},{"slug":"pptx","ruta":"skills/pptx"},{"slug":"pdf","ruta":"skills/pdf"},{"slug":"skill-creator","ruta":"skills/skill-creator"}]},{"id":"linkedin-skills","mark":"in","nombre":"LinkedIn Skills","autor":"Sergey Bulaev","repo":"sergebulaev/linkedin-skills","web":null,"licencia":"MIT","lugar":"marketing","nivel":"Para todos","que":"Kit completo para LinkedIn: publicaciones, perfil, calendario, comentarios y respuestas que suenan a persona.","usos":[{"nombre":"linkedin-post-writer","uso":"publicaciones"},{"nombre":"linkedin-profile-optimizer","uso":"perfil"},{"nombre":"linkedin-content-planner","uso":"calendario"},{"nombre":"linkedin-comment-drafter","uso":"comentarios"},{"nombre":"linkedin-repurposer","uso":"reutiliza contenido"}],"requiere":null,"skills":[{"slug":"linkedin-post-writer","ruta":"skills/linkedin-post-writer"},{"slug":"linkedin-profile-optimizer","ruta":"skills/linkedin-profile-optimizer"},{"slug":"linkedin-content-planner","ruta":"skills/linkedin-content-planner"},{"slug":"linkedin-comment-drafter","ruta":"skills/linkedin-comment-drafter"},{"slug":"linkedin-repurposer","ruta":"skills/linkedin-repurposer"}]},{"id":"instagram-skills","mark":"IG","nombre":"Instagram Skills","autor":"Sergey Bulaev","repo":"sergebulaev/instagram-skills","web":null,"licencia":"MIT","lugar":"marketing","nivel":"Para todos","que":"Kit para Instagram: textos, carruseles, ganchos, hashtags, calendario y perfil.","usos":[{"nombre":"ig-caption-writer","uso":"textos"},{"nombre":"ig-carousel-planner","uso":"carruseles"},{"nombre":"ig-hook-extractor","uso":"ganchos que detienen el scroll"},{"nombre":"ig-hashtag-strategist","uso":"hashtags"},{"nombre":"ig-content-planner","uso":"calendario"}],"requiere":null,"skills":[{"slug":"ig-caption-writer","ruta":"skills/ig-caption-writer"},{"slug":"ig-carousel-planner","ruta":"skills/ig-carousel-planner"},{"slug":"ig-hook-extractor","ruta":"skills/ig-hook-extractor"},{"slug":"ig-hashtag-strategist","ruta":"skills/ig-hashtag-strategist"},{"slug":"ig-content-planner","ruta":"skills/ig-content-planner"}]},{"id":"hyperframes","mark":"HF","nombre":"HyperFrames","autor":"HeyGen","repo":"heygen-com/hyperframes","web":null,"licencia":"Apache-2.0","lugar":"contenido-ia","nivel":"Avanzado","que":"Videos con textos animados, cifras, subtítulos y presentaciones en movimiento, sin usar un editor de video.","usos":[{"nombre":"hyperframes","uso":"punto de entrada: videos, animaciones y subtítulos"},{"nombre":"slideshow","uso":"presentación animada"},{"nombre":"media-use","uso":"usa tus fotos, música y videos"},{"nombre":"hyperframes-cli","uso":"vista previa y render a MP4"}],"requiere":"Necesita Claude Code, Codex o Antigravity instalado en la computadora.","skills":[{"slug":"hyperframes","ruta":"skills/hyperframes"},{"slug":"hyperframes-cli","ruta":"skills/hyperframes-cli"},{"slug":"media-use","ruta":"skills/media-use"},{"slug":"slideshow","ruta":"skills/slideshow"}]},{"id":"higgsfield","mark":"HG","nombre":"Higgsfield","autor":"Higgsfield AI","repo":"higgsfield-ai/skills","web":"https://higgsfield.ai","licencia":"MIT","lugar":"contenido-ia","nivel":"Requiere cuenta","que":"Imágenes y videos con IA, el mismo personaje en varias tomas, fotos de producto y anuncios.","usos":[{"nombre":"higgsfield-generate","uso":"imagen y video"},{"nombre":"higgsfield-soul-id","uso":"tu personaje o avatar"},{"nombre":"higgsfield-product-photoshoot","uso":"fotos de producto"},{"nombre":"higgsfield-youtube-thumbnail","uso":"miniaturas"}],"requiere":"Requiere cuenta de Higgsfield y consume sus créditos.","skills":[{"slug":"higgsfield-generate","ruta":"higgsfield-generate"},{"slug":"higgsfield-soul-id","ruta":"higgsfield-soul-id"},{"slug":"higgsfield-product-photoshoot","ruta":"higgsfield-product-photoshoot"},{"slug":"higgsfield-youtube-thumbnail","ruta":"higgsfield-youtube-thumbnail"}]},{"id":"elevenlabs","mark":"11","nombre":"ElevenLabs","autor":"ElevenLabs","repo":"elevenlabs/skills","web":"https://elevenlabs.io","licencia":"MIT","lugar":"contenido-ia","nivel":"Requiere cuenta","que":"Voz en off natural en español, música y efectos de sonido para tus videos.","usos":[{"nombre":"text-to-speech","uso":"locución en español"},{"nombre":"music","uso":"música para tus videos"},{"nombre":"sound-effects","uso":"efectos de sonido"},{"nombre":"speech-to-text","uso":"transcribe audios"}],"requiere":"Requiere cuenta de ElevenLabs.","skills":[{"slug":"text-to-speech","ruta":"text-to-speech"},{"slug":"music","ruta":"music"},{"slug":"sound-effects","ruta":"sound-effects"},{"slug":"speech-to-text","ruta":"speech-to-text"}]},{"id":"scrapling","mark":"SC","nombre":"Scrapling","autor":"Karim Shoair (D4Vinci)","repo":"D4Vinci/Scrapling","web":null,"licencia":"BSD-3-Clause","lugar":"datos","nivel":"Avanzado","que":"Saca datos de páginas web de forma ordenada (precios, catálogos, noticias, directorios) para analizarlos en Excel.","usos":[{"nombre":"tablas y listados","uso":"de una página a una hoja"},{"nombre":"seguimiento de precios","uso":"compara en el tiempo"},{"nombre":"sitios cambiantes","uso":"se adapta si la página cambia"}],"requiere":"Necesita Python. Úsalo solo en sitios que lo permitan y sin datos personales.","skills":[{"slug":"scrapling","ruta":"agent-skill/Scrapling-Skill"}]},{"id":"impeccable","mark":"IM","nombre":"Impeccable","autor":"Paul Bakaus","repo":"pbakaus/impeccable","web":null,"licencia":"Apache-2.0","lugar":"emprendimiento","nivel":"Avanzado","que":"Diseña páginas web y landing pages con buen gusto, sin el look genérico de IA. Útil para presentar tu negocio o tus servicios.","usos":[{"nombre":"craft","uso":"diseña y construye"},{"nombre":"critique","uso":"evalúa un diseño"},{"nombre":"polish","uso":"último repaso antes de publicar"}],"requiere":"Necesita Claude Code, Codex o Antigravity instalado en la computadora.","skills":[{"slug":"impeccable","ruta":".agents/skills/impeccable"}]}]};
+const PACK = CATALOGO.pack.nombre;
+const REPO = CATALOGO.pack.repo;
+const GENERAL = {
+  skills: CATALOGO.general.skills.map(s => [s.slug, s.nombre, s.descripcion, s.pidelo]),
+  agents: CATALOGO.general.agentes.map(a => [a.slug, a.nombre, a.frecuencia, a.descripcion])
+};
+const AREAS = CATALOGO.areas.map(a => ({id: a.id, mono: a.mono, color: a.color, name: a.nombre, for: a.para,
+  skills: a.skills.map(s => [s.slug, s.nombre, s.descripcion]),
+  agents: a.agentes.map(x => [x.slug, x.nombre, x.frecuencia, x.descripcion])}));
+const THIRD = CATALOGO.terceros.map(t => ({id: t.id, mark: t.mark, name: t.nombre, author: t.autor, repo: t.repo,
+  url: t.web, license: t.licencia, place: t.lugar, level: t.nivel, what: t.que,
+  uses: t.usos.map(u => [u.nombre, u.uso]), needs: t.requiere}));
+
+/* ---------- utilidades ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const clock = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+function toast(t){const el=$("#toast");el.textContent=t;el.classList.add("show");clearTimeout(toast._t);toast._t=setTimeout(()=>el.classList.remove("show"),1800)}
+async function copy(text, fallbackEl){
+  try{await navigator.clipboard.writeText(text);toast("Copiado")}
+  catch(e){ if(fallbackEl){const r=document.createRange();r.selectNodeContents(fallbackEl);const s=getSelection();s.removeAllRanges();s.addRange(r);} toast("Selecciónalo y cópialo a mano") }
+}
+
+/* ---------- cifras ---------- */
+const nGS=GENERAL.skills.length, nGA=GENERAL.agents.length;
+const nES=AREAS.reduce((a,x)=>a+x.skills.length,0), nEA=AREAS.reduce((a,x)=>a+x.agents.length,0);
+$("#stats").innerHTML=[[nGS+nGA,"generales, se instalan solos"],[nES+nEA,"especializados para elegir"],[AREAS.length,"áreas de trabajo"],[THIRD.length,"kits de la comunidad"]]
+  .map(([n,t])=>`<div class="stat"><strong>${n}</strong><span>${t}</span></div>`).join("");
+$("#chatGen").textContent=`${nGS} skills y ${nGA} agentes`;
+$("#stepGen").textContent=`Las ${nGS} skills y los ${nGA} agentes generales quedan listos sin preguntarte nada.`;
+$("#stepAreas").textContent=`Tu IA te muestra las ${AREAS.length} áreas y marcas las que tienen que ver con tu trabajo.`;
+$("#cGS").textContent=nGS; $("#cGA").textContent=nGA;
+
+/* ---------- generales ---------- */
+$("#genSkills").innerHTML=GENERAL.skills.map(([slug,name,desc,ask])=>`
+  <article class="card s"><div class="card-top"><span class="tag">Skill</span></div>
+  <h4>${esc(name)}</h4><span class="slug">${slug}</span><p>${esc(desc)}</p>
+  <div class="say"><span>Pídelo así</span>«${esc(ask)}»</div></article>`).join("");
+$("#genAgents").innerHTML=GENERAL.agents.map(([slug,name,freq,desc])=>`
+  <article class="card a"><div class="card-top"><span class="tag">Agente</span><span class="freq">${clock}${esc(freq)}</span></div>
+  <h4>${esc(name)}</h4><span class="slug">${slug}</span><p>${esc(desc)}</p></article>`).join("");
+
+/* ---------- especializados ---------- */
+let sel=new Set(), area="all", type="all", q="";
+try{const s=JSON.parse(localStorage.getItem("pack-ia0-sel")||"[]");if(Array.isArray(s))sel=new Set(s)}catch(e){}
+const save=()=>{try{localStorage.setItem("pack-ia0-sel",JSON.stringify([...sel]))}catch(e){}};
+
+function chips(){
+  const all=`<button type="button" class="chip" data-area="all" aria-pressed="${area==="all"}">Todas <small>${nES+nEA}</small></button>`;
+  $("#areaChips").innerHTML=all+AREAS.map(a=>`<button type="button" class="chip" data-area="${a.id}" aria-pressed="${area===a.id}"><span style="width:8px;height:8px;border-radius:2px;background:${a.color}"></span>${esc(a.name.split(",")[0].split(" y ")[0])} <small>${a.skills.length+a.agents.length}</small></button>`).join("");
+}
+function match(t){return !q || t.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").includes(q)}
+function itemHTML(kind,a,row){
+  const [slug,name,x,y]=row; const key=`${a.id}/${slug}`; const on=sel.has(key);
+  const freq=kind==="a"?`<span class="freq">${clock}${esc(x)}</span>`:"";
+  const desc=kind==="a"?y:x;
+  return `<article class="item ${kind}${on?" sel":""}">
+    <div class="meta"><span class="tag">${kind==="s"?"Skill":"Agente"}</span>${freq}</div>
+    <button type="button" class="pick" data-key="${key}" aria-pressed="${on}" aria-label="${on?"Quitar":"Agregar"} ${esc(name)}">${on?"Agregado":"Agregar"}</button>
+    <h4>${esc(name)}</h4>
+    <p>${esc(desc)}</p>
+    <span class="slug" style="grid-column:1/-1">${slug}</span></article>`;
+}
+function render(){
+  chips();
+  let html="";
+  for(const a of AREAS){
+    if(area!=="all"&&area!==a.id)continue;
+    const S=(type==="a")?[]:a.skills.filter(r=>match(r.join(" ")));
+    const A=(type==="s")?[]:a.agents.filter(r=>match(r.join(" ")));
+    if(!S.length&&!A.length)continue;
+    html+=`<div class="area" id="area-${a.id}"><div class="area-head">
+      <div class="mono-badge" style="background:${a.color}">${a.mono}</div>
+      <div><h3>${esc(a.name)}</h3><p>${esc(a.for)}</p></div>
+      <div class="area-count"><b>${a.skills.length} skills</b> · <i>${a.agents.length} agentes</i></div></div>
+      <div class="items">${S.map(r=>itemHTML("s",a,r)).join("")}${A.map(r=>itemHTML("a",a,r)).join("")}</div></div>`;
+  }
+  $("#areasList").innerHTML=html||`<div class="empty">No hay herramientas con «${esc($("#q").value)}». Prueba con otra palabra o con «Todas».</div>`;
+  tray();
+}
+const areaName=id=>id==="general"?"General":(AREAS.find(a=>a.id===id)||{}).name||id;
+function thirdHTML(t){
+  const auto=t.place==="general"; const key=`third/${t.id}`; const on=sel.has(key);
+  const lvl=t.level==="Avanzado"?"lvl-adv":t.level==="Requiere cuenta"?"lvl-acc":"";
+  const link=t.repo?`<a href="https://github.com/${t.repo}" target="_blank" rel="noopener">github.com/${esc(t.repo)}</a>`:`<a href="${esc(t.url)}" target="_blank" rel="noopener">${esc(t.url.replace("https://",""))}</a>`;
+  return `<article class="tp${auto?" auto":""}${on?" sel":""}">
+    <div class="tp-top"><div class="tp-id"><div class="tp-mark">${esc(t.mark)}</div><div><h3>${esc(t.name)}</h3><div class="by">por <b>${esc(t.author)}</b></div></div></div>
+    ${auto?"":`<button type="button" class="pick" data-key="${key}" aria-pressed="${on}" aria-label="${on?"Quitar":"Agregar"} ${esc(t.name)}">${on?"Agregado":"Agregar"}</button>`}</div>
+    <div class="badges"><span class="bdg${auto?" auto":""}">${auto?"Se instala con el general":"Área: "+esc(areaName(t.place))}</span><span class="bdg ${lvl}">${esc(t.level)}</span></div>
+    <p>${esc(t.what)}</p>
+    <ul class="uses">${t.uses.map(([c,d])=>`<li><span><code>${esc(c)}</code> · ${esc(d)}</span></li>`).join("")}</ul>
+    ${t.needs?`<div class="needs">${esc(t.needs)}</div>`:""}
+    <div class="credit"><span>Licencia: ${esc(t.license)}</span>${link}</div></article>`;
+}
+function renderThird(){$("#thirdGrid").innerHTML=THIRD.map(thirdHTML).join("")}
+function lookup(key){const [id,slug]=key.split("/");
+  if(id==="third"){const t=THIRD.find(x=>x.id===slug&&x.place!=="general");return t?{a:{name:areaName(t.place)},kind:"t",slug}:null}
+  const a=AREAS.find(x=>x.id===id);if(!a)return null;
+  const s=a.skills.find(r=>r[0]===slug);if(s)return{a,kind:"s",slug};const g=a.agents.find(r=>r[0]===slug);if(g)return{a,kind:"a",slug};return null}
+function promptText(){
+  const items=[...sel].map(lookup).filter(Boolean);
+  const areas=[...new Set(items.map(i=>i.a.name))];
+  const S=items.filter(i=>i.kind==="s").map(i=>i.slug), A=items.filter(i=>i.kind==="a").map(i=>i.slug);
+  let t=`Instala el pack github.com/${REPO}.\nÁreas: ${areas.join("; ")}.`;
+  if(S.length)t+=`\nSkills especializadas: ${S.join(", ")}.`;
+  if(A.length)t+=`\nAgentes especializados: ${A.join(", ")}.`;
+  const T=items.filter(i=>i.kind==="t").map(i=>i.slug);
+  if(T.length)t+=`\nDe la comunidad: ${T.join(", ")}.`;
+  return {t,S:S.length,A:A.length,T:T.length};
+}
+function tray(){
+  for(const k of [...sel]) if(!lookup(k)) sel.delete(k);
+  const n=sel.size; const tr=$("#tray");
+  tr.classList.toggle("show",n>0); document.body.classList.toggle("has-tray",n>0);
+  if(!n){$("#promptBox").classList.remove("open");$("#toggleBox").textContent="Ver pedido";return}
+  const p=promptText();
+  $("#trayCount").innerHTML=`<span>${n}</span> elegidos · ${p.S} skills, ${p.A} agentes${p.T?`, ${p.T} de la comunidad`:""}`;
+  $("#trayPre").textContent=p.t.replace(/\n/g,"  ");
+  $("#promptText").value=p.t;
+}
+
+$("#areaChips").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;area=b.dataset.area;render()});
+document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>{type=b.dataset.type;document.querySelectorAll(".seg button").forEach(x=>x.setAttribute("aria-pressed",x===b));render()}));
+$("#q").addEventListener("input",e=>{q=e.target.value.trim().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");render()});
+$("#areasList").addEventListener("click",e=>{const b=e.target.closest(".pick");if(!b)return;const k=b.dataset.key;
+  sel.has(k)?sel.delete(k):sel.add(k);save();
+  const on=sel.has(k);b.setAttribute("aria-pressed",on);b.textContent=on?"Agregado":"Agregar";b.closest(".item").classList.toggle("sel",on);tray()});
+$("#thirdGrid").addEventListener("click",e=>{const b=e.target.closest(".pick");if(!b)return;const k=b.dataset.key;
+  sel.has(k)?sel.delete(k):sel.add(k);save();
+  const on=sel.has(k);b.setAttribute("aria-pressed",on);b.textContent=on?"Agregado":"Agregar";b.closest(".tp").classList.toggle("sel",on);tray()});
+$("#copyCmd").addEventListener("click",()=>copy(`Instala el pack github.com/${REPO}`,$("#cmd")));
+$("#copySel").addEventListener("click",()=>copy(promptText().t,$("#promptText")));
+$("#clearSel").addEventListener("click",()=>{sel.clear();save();render()});
+$("#toggleBox").addEventListener("click",()=>{const o=$("#promptBox").classList.toggle("open");$("#toggleBox").textContent=o?"Ocultar pedido":"Ver pedido"});
+
+renderThird();
+render();
+</script>
+
+</body>
+</html>

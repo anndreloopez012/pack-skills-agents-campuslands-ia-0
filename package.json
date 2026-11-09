@@ -1,0 +1,12 @@
+{
+  "name": "pack-skills-agents-campuslands-ia-0",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pack de skills y agentes de IA del taller IA desde 0 de Campuslands Guatemala.",
+  "scripts": {
+    "verificar": "python3 scripts/verificar.py",
+    "generar": "python3 scripts/agentes.py generar && python3 scripts/landing.py generar",
+    "lista": "python3 scripts/instalar.py --lista"
+  },
+  "license": "MIT"
+}
