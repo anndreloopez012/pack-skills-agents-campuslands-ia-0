@@ -1,0 +1,1293 @@
+{
+  "pack": {
+    "nombre": "pack-skills-agents-campuslands-ia-0",
+    "titulo": "Pack IA desde 0",
+    "autor": "Campuslands Guatemala",
+    "version": "0.1.0",
+    "repo": "anndreloopez012/pack-skills-agents-campuslands-ia-0"
+  },
+  "general": {
+    "skills": [
+      {
+        "slug": "inbox-triage",
+        "nombre": "Ordena mi bandeja",
+        "descripcion": "Clasifica los correos y mensajes que le pegues en urgente, hoy, esta semana o solo leer, y te deja borradores de respuesta.",
+        "pidelo": "Ordena estos 15 correos y dime cuáles contesto primero."
+      },
+      {
+        "slug": "process-mapper",
+        "nombre": "Documenta mi proceso",
+        "descripcion": "Convierte «lo que hago» en una ficha con pasos, responsables, decisiones y plazos. Es el primer paso para crear cualquier agente propio.",
+        "pidelo": "Así hago una cotización, de principio a fin. Documéntalo."
+      },
+      {
+        "slug": "source-researcher",
+        "nombre": "Investiga con fuentes",
+        "descripcion": "Busca información y entrega cada dato con su fuente y fecha. Separa lo confirmado de lo que no se pudo verificar.",
+        "pidelo": "Investiga los requisitos para exportar café a Canadá."
+      },
+      {
+        "slug": "one-pager",
+        "nombre": "Resumen de una página",
+        "descripcion": "Reduce un documento largo a los 5 puntos clave, su impacto y la decisión que se necesita tomar.",
+        "pidelo": "Resume este informe de 40 páginas para la gerencia."
+      },
+      {
+        "slug": "meeting-kit",
+        "nombre": "Reuniones al grano",
+        "descripcion": "Antes: agenda y preguntas clave. Después: minuta con acuerdos, responsables y fechas, a partir de tus notas.",
+        "pidelo": "Con estas notas arma la minuta y los acuerdos."
+      },
+      {
+        "slug": "pro-writer",
+        "nombre": "Redacta profesional",
+        "descripcion": "Correos, oficios, cartas y mensajes con el tono correcto: formal, cordial o directo, en español de Guatemala.",
+        "pidelo": "Redacta un oficio pidiendo prórroga de 10 días hábiles."
+      },
+      {
+        "slug": "doc-to-presentation",
+        "nombre": "Del documento a la presentación",
+        "descripcion": "Convierte un PDF, libro o tus notas en diapositivas con estructura, ejemplos y notas para quien presenta.",
+        "pidelo": "Haz una presentación de 10 diapositivas de este capítulo."
+      },
+      {
+        "slug": "spreadsheet-helper",
+        "nombre": "Excel sin miedo",
+        "descripcion": "Fórmulas, tablas dinámicas, limpieza de datos y gráficos explicados paso a paso, en Excel o Google Sheets.",
+        "pidelo": "Necesito sumar ventas por mes y por vendedor."
+      },
+      {
+        "slug": "weekly-planner",
+        "nombre": "Organiza mi semana",
+        "descripcion": "Ordena tus pendientes por urgencia e importancia y los acomoda en tu agenda real, dejando espacio para imprevistos.",
+        "pidelo": "Tengo estas 20 tareas y 3 reuniones. Arma mi semana."
+      },
+      {
+        "slug": "prompt-coach",
+        "nombre": "Mejora mi pedido",
+        "descripcion": "Revisa lo que le pides a la IA, te dice qué le falta (contexto, formato, ejemplo) y te devuelve una versión mejor.",
+        "pidelo": "¿Cómo mejoro este pedido para que no me dé algo genérico?"
+      },
+      {
+        "slug": "human-voice",
+        "nombre": "Suena a persona",
+        "descripcion": "Quita frases de robot, relleno y adjetivos vacíos de cualquier texto antes de enviarlo o publicarlo.",
+        "pidelo": "Haz que este correo suene natural, como lo escribiría yo."
+      },
+      {
+        "slug": "data-shield",
+        "nombre": "Protege tus datos",
+        "descripcion": "Antes de trabajar un documento, reemplaza nombres, DPI, NIT, cuentas y montos sensibles por etiquetas y te avisa qué no conviene compartir.",
+        "pidelo": "Quita los datos personales de este listado antes de analizarlo."
+      },
+      {
+        "slug": "google-flow-veo-director",
+        "nombre": "Director de Veo y Flow",
+        "descripcion": "Convierte tu idea en prompts de video para Veo y Flow: escena, cámara, luz, movimiento y diálogo, y encadena varias tomas en una historia.",
+        "pidelo": "Haz un video de 16 segundos de mi café en Antigua para Instagram."
+      },
+      {
+        "slug": "image-prompt-director",
+        "nombre": "Imágenes con IA",
+        "descripcion": "Prompts para crear imágenes en Gemini o ChatGPT: estilo, encuadre, texto legible y una versión para cada red.",
+        "pidelo": "Crea la portada de mi carrusel sobre cómo ahorrar en quetzales."
+      }
+    ],
+    "agentes": [
+      {
+        "slug": "morning-brief",
+        "nombre": "Resumen de la mañana",
+        "frecuencia": "Diario",
+        "descripcion": "Al empezar el día te entrega lo urgente, tus reuniones, lo que vence hoy y las 3 cosas que no pueden quedar sin hacer."
+      },
+      {
+        "slug": "follow-up-tracker",
+        "nombre": "Vigía de pendientes",
+        "frecuencia": "Diario",
+        "descripcion": "Lleva la lista de lo que esperas de otros (respuestas, cotizaciones, firmas) y te avisa cuándo insistir, con el mensaje ya redactado."
+      },
+      {
+        "slug": "weekly-review",
+        "nombre": "Cierre de semana",
+        "frecuencia": "Semanal",
+        "descripcion": "Cada viernes: qué se logró, qué quedó pendiente y qué conviene priorizar la próxima semana."
+      },
+      {
+        "slug": "topic-watch",
+        "nombre": "Vigía de temas",
+        "frecuencia": "Semanal",
+        "descripcion": "Sigue los temas que elijas (tu industria, leyes, tecnología) y te manda lo nuevo con su fuente y por qué te importa."
+      },
+      {
+        "slug": "learning-scout",
+        "nombre": "Buscador de formación",
+        "frecuencia": "Mensual",
+        "descripcion": "Busca cursos, talleres, diplomados y becas según tu perfil, tu presupuesto y tu horario."
+      },
+      {
+        "slug": "content-director",
+        "nombre": "Director de contenido",
+        "frecuencia": "Semanal",
+        "descripcion": "Propone 3 piezas (publicación, carrusel y video corto) con guion y prompts listos para Veo e imágenes. Nada se publica sin tu aprobación."
+      }
+    ]
+  },
+  "areas": [
+    {
+      "id": "contabilidad",
+      "mono": "CA",
+      "color": "#0A7558",
+      "nombre": "Contabilidad, auditoría e impuestos",
+      "para": "Para contadores, auditores y quien lleva las cuentas en Guatemala.",
+      "skills": [
+        {
+          "slug": "journal-entries",
+          "nombre": "Partidas contables",
+          "descripcion": "Registra compras, ventas, ingresos y gastos como partidas de diario, con sus cuentas y la explicación de cada una."
+        },
+        {
+          "slug": "bank-reconciliation",
+          "nombre": "Conciliación bancaria",
+          "descripcion": "Cruza el estado de cuenta con tus libros, encuentra las diferencias y arma la conciliación."
+        },
+        {
+          "slug": "financial-statements",
+          "nombre": "Estados financieros",
+          "descripcion": "Balance general, estado de resultados y flujo de efectivo con sus notas, a partir de tus saldos."
+        },
+        {
+          "slug": "financial-ratios",
+          "nombre": "Ratios con interpretación",
+          "descripcion": "Calcula liquidez, endeudamiento y rentabilidad y explica en palabras qué dice cada uno."
+        },
+        {
+          "slug": "tax-returns-gt",
+          "nombre": "IVA, ISR e ISO",
+          "descripcion": "Calcula y revisa las declaraciones con la base legal guatemalteca y señala lo que hay que documentar."
+        },
+        {
+          "slug": "payroll-igss",
+          "nombre": "Planilla e IGSS",
+          "descripcion": "Sueldos, prestaciones, cuotas del IGSS, bono 14, aguinaldo e indemnización, con el detalle del cálculo."
+        },
+        {
+          "slug": "audit-planning",
+          "nombre": "Planificación de auditoría",
+          "descripcion": "Materialidad, matriz de riesgos y carta de planificación para arrancar un encargo."
+        },
+        {
+          "slug": "audit-letters",
+          "nombre": "Cartas de auditoría",
+          "descripcion": "Carta a la gerencia, carta de representación y borrador del informe o dictamen, con hallazgos ordenados."
+        },
+        {
+          "slug": "internal-control",
+          "nombre": "Control interno COSO",
+          "descripcion": "Evalúa controles, arqueos y procesos de compras, ventas, cobros y pagos; propone recomendaciones."
+        },
+        {
+          "slug": "sat-response",
+          "nombre": "Requerimientos de la SAT",
+          "descripcion": "Ordena lo que pide el requerimiento, lista los documentos de soporte y redacta la respuesta."
+        },
+        {
+          "slug": "ive-forms",
+          "nombre": "Formularios IVE",
+          "descripcion": "Prepara la información que piden los formularios de la IVE y revisa que esté completa."
+        }
+      ],
+      "agentes": [
+        {
+          "slug": "fiscal-calendar",
+          "nombre": "Calendario fiscal",
+          "frecuencia": "Mensual",
+          "descripcion": "Fechas de IVA, ISR, ISO e IGSS del mes y la lista de lo que falta por cada empresa o cliente."
+        },
+        {
+          "slug": "sat-watch",
+          "nombre": "Vigía de la SAT",
+          "frecuencia": "Semanal",
+          "descripcion": "Cambios de normativa, resoluciones y criterios de la SAT, con lo que significan para tus clientes."
+        },
+        {
+          "slug": "audit-workpapers",
+          "nombre": "Papeles de trabajo",
+          "frecuencia": "Al iniciar un encargo",
+          "descripcion": "Arma el índice y las cédulas de trabajo de una auditoría a partir de la información del cliente."
+        }
+      ]
+    },
+    {
+      "id": "ventas",
+      "mono": "VE",
+      "color": "#B5473A",
+      "nombre": "Ventas y atención al cliente",
+      "para": "Para quien cotiza, vende, factura y da servicio técnico.",
+      "skills": [
+        {
+          "slug": "quote-builder",
+          "nombre": "Cotizaciones rápidas",
+          "descripcion": "De un mensaje de WhatsApp o un correo a una cotización completa con precios, plazos y condiciones."
+        },
+        {
+          "slug": "invoice-draft",
+          "nombre": "Factura y entrega",
+          "descripcion": "Prepara los datos de la factura y la nota de entrega, y revisa que todo cuadre antes de emitir."
+        },
+        {
+          "slug": "quick-replies",
+          "nombre": "Respuestas rápidas",
+          "descripcion": "Biblioteca de respuestas para las preguntas que más te hacen, listas para WhatsApp Business."
+        },
+        {
+          "slug": "call-script",
+          "nombre": "Guion de llamada",
+          "descripcion": "Lo que vas a decir, las preguntas clave y cómo cerrar, para llamadas de venta o de cobro."
+        },
+        {
+          "slug": "objection-handler",
+          "nombre": "Respuesta a objeciones",
+          "descripcion": "«Está caro», «lo voy a pensar»: respuestas honestas para cada objeción común."
+        },
+        {
+          "slug": "visit-report",
+          "nombre": "Reporte de visita técnica",
+          "descripcion": "De tus notas o un audio a un informe con hallazgos, repuestos necesarios y siguiente paso."
+        }
+      ],
+      "agentes": [
+        {
+          "slug": "quotes-followup",
+          "nombre": "Seguimiento de cotizaciones",
+          "frecuencia": "Diario",
+          "descripcion": "Revisa qué cotizaciones no tienen respuesta y te deja listo el mensaje para darles seguimiento."
+        },
+        {
+          "slug": "sales-summary",
+          "nombre": "Resumen de ventas",
+          "frecuencia": "Semanal",
+          "descripcion": "Ventas cerradas, pendientes de cobro y clientes que hace tiempo no compran."
+        }
+      ]
+    },
+    {
+      "id": "marketing",
+      "mono": "MK",
+      "color": "#C98A0C",
+      "nombre": "Marketing, redes y marca personal",
+      "para": "Para quien publica en LinkedIn o Instagram, por su marca o por la de su empresa.",
+      "skills": [
+        {
+          "slug": "content-calendar",
+          "nombre": "Calendario de contenido",
+          "descripcion": "Plan de publicaciones del mes por red, formato, tema y objetivo."
+        },
+        {
+          "slug": "linkedin-post",
+          "nombre": "Publicación de LinkedIn",
+          "descripcion": "Escribe publicaciones con gancho, una idea clara y cierre, en tu voz."
+        },
+        {
+          "slug": "carousel-builder",
+          "nombre": "Carrusel",
+          "descripcion": "Texto por diapositiva, portada y llamado a la acción, adaptado a Instagram y LinkedIn."
+        },
+        {
+          "slug": "reel-script",
+          "nombre": "Guion de reel",
+          "descripcion": "Guion de 30 a 60 segundos con lo que dices, lo que se ve y el texto en pantalla."
+        },
+        {
+          "slug": "profile-optimizer",
+          "nombre": "Perfil que atrae",
+          "descripcion": "Titular, biografía y sección «acerca de» para LinkedIn o Instagram."
+        },
+        {
+          "slug": "brand-voice",
+          "nombre": "Voz de marca",
+          "descripcion": "Una guía de tono con las palabras que sí y las que no, para que todo suene igual."
+        },
+        {
+          "slug": "portfolio-builder",
+          "nombre": "Portafolio de casos",
+          "descripcion": "Convierte tu experiencia en casos con problema, lo que hiciste y el resultado."
+        }
+      ],
+      "agentes": [
+        {
+          "slug": "editorial-strategist",
+          "nombre": "Estratega editorial",
+          "frecuencia": "Semanal",
+          "descripcion": "Revisa tus ideas pendientes, tendencias y resultados; propone el calendario de la semana y espera tu aprobación."
+        },
+        {
+          "slug": "content-repurposer",
+          "nombre": "Reciclador de contenido",
+          "frecuencia": "Semanal",
+          "descripcion": "Toma tu mejor publicación y la convierte en carrusel, reel, texto corto e historia."
+        },
+        {
+          "slug": "metrics-review",
+          "nombre": "Lectura de resultados",
+          "frecuencia": "Mensual",
+          "descripcion": "Lee tus cifras y te dice qué temas y formatos funcionaron y qué repetir."
+        }
+      ]
+    },
+    {
+      "id": "contenido-ia",
+      "mono": "IA",
+      "color": "#C2416B",
+      "nombre": "Contenido con IA: imagen, video y voz",
+      "para": "Para quien quiere crear sus propios videos e imágenes con Veo, Flow, Gemini o ChatGPT.",
+      "skills": [
+        {
+          "slug": "video-prompt-engineering",
+          "nombre": "Prompts para cualquier plataforma",
+          "descripcion": "Adapta un mismo prompt de video a Veo, Kling, Runway o Sora, con cámara, luz y movimiento, y arregla el que no salió."
+        },
+        {
+          "slug": "storyboard",
+          "nombre": "Guion gráfico",
+          "descripcion": "Divide tu idea en escenas con lo que se ve, lo que se dice y la duración de cada toma."
+        },
+        {
+          "slug": "character-consistency",
+          "nombre": "Mismo personaje",
+          "descripcion": "Ficha del personaje y frases fijas para que salga igual en todas las imágenes y videos."
+        },
+        {
+          "slug": "video-continuity",
+          "nombre": "Continuidad entre clips",
+          "descripcion": "Encadena clips de 8 segundos sin que cambien la ropa, la luz o el lugar entre una toma y otra."
+        },
+        {
+          "slug": "ugc-ad",
+          "nombre": "Anuncio tipo testimonio",
+          "descripcion": "Guion y prompts de un video estilo cliente real que habla de tu producto."
+        },
+        {
+          "slug": "voiceover-script",
+          "nombre": "Locución y subtítulos",
+          "descripcion": "Texto de la voz en off con sus tiempos y los subtítulos listos."
+        },
+        {
+          "slug": "cover-designer",
+          "nombre": "Portadas y miniaturas",
+          "descripcion": "Prompts para portadas de reels, miniaturas y la primera diapositiva del carrusel."
+        }
+      ],
+      "agentes": [
+        {
+          "slug": "video-series",
+          "nombre": "Productor de series cortas",
+          "frecuencia": "Semanal",
+          "descripcion": "Planea una serie de 3 a 5 videos cortos con guion, prompts para Veo y textos para publicar; espera tu aprobación."
+        },
+        {
+          "slug": "trend-to-video",
+          "nombre": "De tendencia a video",
+          "frecuencia": "Semanal",
+          "descripcion": "Toma lo que está sonando en tu tema y te lo entrega como idea de video con guion y prompts listos."
+        }
+      ]
+    },
+    {
+      "id": "docencia",
+      "mono": "DC",
+      "color": "#3D6FB0",
+      "nombre": "Docencia y capacitación",
+      "para": "Para catedráticos, maestros, facilitadores y quien da capacitaciones.",
+      "skills": [
+        {
+          "slug": "interactive-class",
+          "nombre": "Clase interactiva",
+          "descripcion": "Convierte un tema del libro en una clase con dinámicas, preguntas y actividades."
+        },
+        {
+          "slug": "quiz-game",
+          "nombre": "Evaluación con juego",
+          "descripcion": "Trivias, crucigramas, sopas de letras y retos para validar lo aprendido."
+        },
+        {
+          "slug": "exam-grader",
+          "nombre": "Corrección con rúbrica",
+          "descripcion": "Revisa respuestas contra tu rúbrica y propone retroalimentación. La nota la decides tú."
+        },
+        {
+          "slug": "training-designer",
+          "nombre": "Capacitación para adultos",
+          "descripcion": "Objetivos, ejercicios con casos reales y evaluación a partir de mucho material de lectura."
+        },
+        {
+          "slug": "study-guide",
+          "nombre": "Guía de estudio en grupo",
+          "descripcion": "Consolida materiales en guías con preguntas de reflexión para grupos de estudio."
+        },
+        {
+          "slug": "video-lesson",
+          "nombre": "Guion de video-clase",
+          "descripcion": "Estructura y guion para grabar una clase corta que se entienda sola."
+        }
+      ],
+      "agentes": [
+        {
+          "slug": "class-prep",
+          "nombre": "Preparador de clases",
+          "frecuencia": "Semanal",
+          "descripcion": "Con el tema de la semana te deja la presentación, una actividad y la evaluación."
+        },
+        {
+          "slug": "field-update",
+          "nombre": "Novedades de mi materia",
+          "frecuencia": "Mensual",
+          "descripcion": "Busca innovaciones y lecturas nuevas de tu materia, con fuente, para actualizar tus clases."
+        }
+      ]
+    },
+    {
+      "id": "datos",
+      "mono": "BI",
+      "color": "#6B4FA0",
+      "nombre": "Datos y BI",
+      "para": "Para quien trabaja con Excel avanzado, Power BI o People Analytics.",
+      "skills": [
+        {
+          "slug": "data-cleaner",
+          "nombre": "Limpieza de datos",
+          "descripcion": "Detecta duplicados, vacíos y errores, y te dice cómo corregirlos."
+        },
+        {
+          "slug": "dax-helper",
+          "nombre": "Power BI y DAX",
+          "descripcion": "Medidas DAX, modelo de datos y explicación de cada fórmula."
+        },
+        {
+          "slug": "dashboard-designer",
+          "nombre": "Diseño de tablero",
+          "descripcion": "Qué indicadores mostrar, con qué gráfico y en qué orden."
+        },
+        {
+          "slug": "experiment-card",
+          "nombre": "Ficha de experimento",
+          "descripcion": "Problema, hipótesis, datos, método, validación, hallazgos y límites en un formato fijo."
+        },
+        {
+          "slug": "people-analytics",
+          "nombre": "People Analytics",
+          "descripcion": "Rotación, ausentismo y clima con datos autorizados o de práctica."
+        },
+        {
+          "slug": "data-story",
+          "nombre": "Historia con datos",
+          "descripcion": "Convierte un análisis en conclusiones claras para quien no es técnico."
+        }
+      ],
+      "agentes": [
+        {
+          "slug": "data-lab",
+          "nombre": "Laboratorio de datos",
+          "frecuencia": "Quincenal",
+          "descripcion": "Propone experimentos, los documenta con su ficha y los convierte en portafolio o contenido."
+        },
+        {
+          "slug": "dataset-scout",
+          "nombre": "Buscador de datasets",
+          "frecuencia": "Mensual",
+          "descripcion": "Encuentra datos públicos con licencia clara para practicar o publicar."
+        }
+      ]
+    },
+    {
+      "id": "gestion-publica",
+      "mono": "GP",
+      "color": "#2F7F8F",
+      "nombre": "Planificación y gestión pública",
+      "para": "Para quien formula planes, presupuestos y procesos en instituciones.",
+      "skills": [
+        {
+          "slug": "pei-poa",
+          "nombre": "PEI y POA",
+          "descripcion": "Arma el Plan Estratégico y el Plan Operativo Anual alineados a las prioridades nacionales."
+        },
+        {
+          "slug": "logical-framework",
+          "nombre": "Marco lógico",
+          "descripcion": "Árbol de problemas, objetivos e indicadores con medios de verificación."
+        },
+        {
+          "slug": "budget-classifier",
+          "nombre": "Renglones presupuestarios",
+          "descripcion": "Ubica cada insumo en el catálogo del MINFIN y su renglón presupuestario."
+        },
+        {
+          "slug": "iso-9001",
+          "nombre": "ISO 9001 paso a paso",
+          "descripcion": "Plantillas de levantamiento por capítulo de la norma y el cruce entre requisitos."
+        },
+        {
+          "slug": "process-redesign",
+          "nombre": "Rediseño de procesos",
+          "descripcion": "Simplifica trámites, arma fichas de proceso y sus indicadores."
+        },
+        {
+          "slug": "indicators",
+          "nombre": "Indicadores y tableros",
+          "descripcion": "Metas, fórmulas, fuentes y semáforo para medir resultados."
+        },
+        {
+          "slug": "tdr-writer",
+          "nombre": "Términos de referencia",
+          "descripcion": "Redacta TDR y especificaciones técnicas claras para una contratación."
+        }
+      ],
+      "agentes": [
+        {
+          "slug": "plan-tracker",
+          "nombre": "Seguimiento de ejecución",
+          "frecuencia": "Mensual",
+          "descripcion": "Compara lo planificado contra lo ejecutado y avisa qué metas se están quedando atrás."
+        },
+        {
+          "slug": "policy-watch",
+          "nombre": "Vigía de normativa pública",
+          "frecuencia": "Semanal",
+          "descripcion": "Nuevos acuerdos, leyes y lineamientos que afectan a tu institución, con su fuente."
+        }
+      ]
+    },
+    {
+      "id": "infraestructura",
+      "mono": "IN",
+      "color": "#5E6B3A",
+      "nombre": "Administración, edificios e infraestructura",
+      "para": "Para administradores de edificios, gerentes administrativos y de obra.",
+      "skills": [
+        {
+          "slug": "maintenance-checklist",
+          "nombre": "Checklist de mantenimiento",
+          "descripcion": "Por nivel y equipo: sanitarios, electricidad, climatización, bombeo y ascensores."
+        },
+        {
+          "slug": "supplier-contracts",
+          "nombre": "Contratos y proveedores",
+          "descripcion": "Controla vigencias, visitas, técnicos, piezas cambiadas y evaluación del servicio."
+        },
+        {
+          "slug": "ohs-compliance",
+          "nombre": "Seguridad ocupacional",
+          "descripcion": "Comités, capacitaciones y requisitos de salud y seguridad ocupacional, listos para una inspección."
+        },
+        {
+          "slug": "budget-vs-actual",
+          "nombre": "Presupuesto vs ejecutado",
+          "descripcion": "Compara lo planificado con lo gastado por renglón y explica las diferencias."
+        },
+        {
+          "slug": "project-control",
+          "nombre": "Control de obra",
+          "descripcion": "Avance físico y financiero, valor ganado y alertas de atraso."
+        },
+        {
+          "slug": "incident-desk",
+          "nombre": "Atención de solicitudes",
+          "descripcion": "Registra, prioriza y responde las solicitudes de ocupantes y personal."
+        }
+      ],
+      "agentes": [
+        {
+          "slug": "maintenance-scheduler",
+          "nombre": "Programador de mantenimiento",
+          "frecuencia": "Semanal",
+          "descripcion": "Te dice qué mantenimiento toca esta semana y qué proveedor debe venir."
+        },
+        {
+          "slug": "contract-deadlines",
+          "nombre": "Vencimientos de contratos",
+          "frecuencia": "Mensual",
+          "descripcion": "Contratos, licencias y pólizas por vencer, con tiempo para renovar."
+        }
+      ]
+    },
+    {
+      "id": "direccion",
+      "mono": "DI",
+      "color": "#8A4B6E",
+      "nombre": "Dirección y negocios",
+      "para": "Para directores, gerentes y quien toma decisiones con la agenda llena.",
+      "skills": [
+        {
+          "slug": "negotiation-brief",
+          "nombre": "Preparar una negociación",
+          "descripcion": "Tu posición, la de la otra parte, márgenes y argumentos en una página."
+        },
+        {
+          "slug": "decision-memo",
+          "nombre": "Memo de decisión",
+          "descripcion": "Opciones, riesgos y recomendación para presentar a un comité."
+        },
+        {
+          "slug": "strategy-one-pager",
+          "nombre": "Estrategia en una página",
+          "descripcion": "Objetivo, acciones, responsables e indicadores de una estrategia."
+        },
+        {
+          "slug": "market-brief",
+          "nombre": "Panorama de mercado",
+          "descripcion": "Tendencias y riesgos de un sector con fuentes. Es información para decidir, no una recomendación de inversión."
+        },
+        {
+          "slug": "team-update",
+          "nombre": "Mensaje a mi equipo",
+          "descripcion": "Comunica cambios, metas o reconocimientos con claridad y buen tono."
+        },
+        {
+          "slug": "delegation-planner",
+          "nombre": "Qué delego",
+          "descripcion": "Revisa tu agenda y separa lo que solo tú puedes hacer de lo que puedes delegar."
+        }
+      ],
+      "agentes": [
+        {
+          "slug": "afternoon-digest",
+          "nombre": "Resumen de la tarde",
+          "frecuencia": "Diario",
+          "descripcion": "Agrupa por tema los correos no urgentes para leerlos en 15 minutos y no de noche."
+        },
+        {
+          "slug": "market-weekly",
+          "nombre": "Panorama semanal",
+          "frecuencia": "Semanal",
+          "descripcion": "Los 5 temas de mercados, tecnología, salud y energía que más pesan esta semana, con fuentes."
+        }
+      ]
+    },
+    {
+      "id": "emprendimiento",
+      "mono": "EM",
+      "color": "#C25E2A",
+      "nombre": "Emprendimiento y consultoría",
+      "para": "Para quien tiene su negocio, vende un producto u ofrece sus servicios.",
+      "skills": [
+        {
+          "slug": "inventory-control",
+          "nombre": "Inventario y materia prima",
+          "descripcion": "Entradas, salidas y existencias, con aviso de lo que se está acabando."
+        },
+        {
+          "slug": "product-costing",
+          "nombre": "Costeo y precio",
+          "descripcion": "Cuánto te cuesta producir y a qué precio vender para ganar."
+        },
+        {
+          "slug": "cash-close",
+          "nombre": "Ventas, pagos y caja",
+          "descripcion": "Cuadra ventas, cobros, pagos y banco del período."
+        },
+        {
+          "slug": "production-planner",
+          "nombre": "Plan de producción",
+          "descripcion": "Qué producir, cuánto y cuándo según tus pedidos."
+        },
+        {
+          "slug": "service-offer",
+          "nombre": "Oferta de servicios",
+          "descripcion": "Qué ofreces, a quién, en qué paquetes y a qué precio. Ideal para consultores."
+        },
+        {
+          "slug": "proposal-builder",
+          "nombre": "Propuesta comercial",
+          "descripcion": "Propuesta con alcance, entregables, plazos y precio, lista para enviar."
+        }
+      ],
+      "agentes": [
+        {
+          "slug": "monthly-close",
+          "nombre": "Cierre del mes",
+          "frecuencia": "Mensual",
+          "descripcion": "Ventas, gastos, ganancia y lo que quedó por cobrar o pagar."
+        },
+        {
+          "slug": "restock-alert",
+          "nombre": "Aviso de reposición",
+          "frecuencia": "Semanal",
+          "descripcion": "Te avisa qué materia prima o producto reponer y cuánto pedir."
+        }
+      ]
+    },
+    {
+      "id": "personal",
+      "mono": "YO",
+      "color": "#4C7A5A",
+      "nombre": "Desarrollo personal y bienestar",
+      "para": "Para aprender, cuidarte y planear lo que haces fuera del trabajo.",
+      "skills": [
+        {
+          "slug": "english-tutor",
+          "nombre": "Tutor de inglés",
+          "descripcion": "Conversa contigo, corrige con explicación y adapta el nivel."
+        },
+        {
+          "slug": "workout-planner",
+          "nombre": "Rutina de ejercicio",
+          "descripcion": "Rutina por días según tu objetivo, tu tiempo y tu gimnasio."
+        },
+        {
+          "slug": "travel-planner",
+          "nombre": "Itinerario de viaje",
+          "descripcion": "Ruta, costos, clima, eventos, gastronomía y paisajes con fuentes confiables."
+        },
+        {
+          "slug": "habit-tracker",
+          "nombre": "Hábitos",
+          "descripcion": "Define hábitos pequeños y lleva el registro sin culpa."
+        },
+        {
+          "slug": "music-practice",
+          "nombre": "Práctica musical",
+          "descripcion": "Plan de práctica con partituras, respiración y vocalización."
+        },
+        {
+          "slug": "cv-builder",
+          "nombre": "CV y perfil profesional",
+          "descripcion": "Convierte tu experiencia en un CV y un perfil que se entiendan rápido."
+        }
+      ],
+      "agentes": [
+        {
+          "slug": "english-daily",
+          "nombre": "Práctica de inglés",
+          "frecuencia": "Diario",
+          "descripcion": "Un ejercicio corto cada día según tu nivel y tus errores frecuentes."
+        },
+        {
+          "slug": "trip-scout",
+          "nombre": "Explorador de viajes",
+          "frecuencia": "Mensual",
+          "descripcion": "Destinos, conciertos, festivales y eventos con fechas y costos aproximados."
+        }
+      ]
+    }
+  ],
+  "terceros": [
+    {
+      "id": "superpowers",
+      "mark": "SP",
+      "nombre": "Superpowers",
+      "autor": "Jesse Vincent",
+      "repo": "obra/superpowers",
+      "web": null,
+      "licencia": "MIT",
+      "lugar": "general",
+      "nivel": "Para todos",
+      "que": "Le da método a tu IA: antes de hacer algo te hace preguntas, arma un plan por pasos y revisa el resultado antes de decir «listo».",
+      "usos": [
+        {
+          "nombre": "brainstorming",
+          "uso": "aterriza una idea con preguntas"
+        },
+        {
+          "nombre": "writing-plans",
+          "uso": "plan paso a paso"
+        },
+        {
+          "nombre": "executing-plans",
+          "uso": "avanza el plan tarea por tarea"
+        },
+        {
+          "nombre": "verification-before-completion",
+          "uso": "revisa antes de entregar"
+        }
+      ],
+      "requiere": null,
+      "skills": [
+        {
+          "slug": "brainstorming",
+          "ruta": "skills/brainstorming"
+        },
+        {
+          "slug": "writing-plans",
+          "ruta": "skills/writing-plans"
+        },
+        {
+          "slug": "executing-plans",
+          "ruta": "skills/executing-plans"
+        },
+        {
+          "slug": "verification-before-completion",
+          "ruta": "skills/verification-before-completion"
+        }
+      ]
+    },
+    {
+      "id": "agent-skills",
+      "mark": "AO",
+      "nombre": "Agent Skills",
+      "autor": "Addy Osmani",
+      "repo": "addyosmani/agent-skills",
+      "web": null,
+      "licencia": "MIT",
+      "lugar": "general",
+      "nivel": "Para todos",
+      "que": "Para pensar antes de hacer: afina una idea, deja que la IA te entreviste y parte un proyecto grande en tareas pequeñas.",
+      "usos": [
+        {
+          "nombre": "idea-refine",
+          "uso": "afina una idea"
+        },
+        {
+          "nombre": "interview-me",
+          "uso": "la IA te entrevista para entender qué quieres"
+        },
+        {
+          "nombre": "planning-and-task-breakdown",
+          "uso": "divide el trabajo en tareas"
+        },
+        {
+          "nombre": "documentation-and-adrs",
+          "uso": "deja documentado lo que se decidió"
+        }
+      ],
+      "requiere": null,
+      "skills": [
+        {
+          "slug": "idea-refine",
+          "ruta": "skills/idea-refine"
+        },
+        {
+          "slug": "interview-me",
+          "ruta": "skills/interview-me"
+        },
+        {
+          "slug": "planning-and-task-breakdown",
+          "ruta": "skills/planning-and-task-breakdown"
+        },
+        {
+          "slug": "documentation-and-adrs",
+          "ruta": "skills/documentation-and-adrs"
+        }
+      ]
+    },
+    {
+      "id": "diagram-design",
+      "mark": "DD",
+      "nombre": "Diagram Design",
+      "autor": "Cathryn Lavery",
+      "repo": "cathrynlavery/diagram-design",
+      "web": null,
+      "licencia": "MIT",
+      "lugar": "general",
+      "nivel": "Para todos",
+      "que": "Diagramas limpios y con estilo editorial: flujos de proceso, organigramas, líneas de tiempo y mapas. Combina con «Documenta mi proceso».",
+      "usos": [
+        {
+          "nombre": "flujos",
+          "uso": "procesos por carriles"
+        },
+        {
+          "nombre": "organigramas",
+          "uso": "quién hace qué"
+        },
+        {
+          "nombre": "líneas de tiempo",
+          "uso": "proyectos e historia"
+        },
+        {
+          "nombre": "exportar",
+          "uso": "imagen lista para presentar"
+        }
+      ],
+      "requiere": null,
+      "skills": [
+        {
+          "slug": "diagram-design",
+          "ruta": "skills/diagram-design"
+        }
+      ]
+    },
+    {
+      "id": "anthropic-skills",
+      "mark": "AN",
+      "nombre": "Documentos de oficina",
+      "autor": "Anthropic",
+      "repo": "anthropics/skills",
+      "web": null,
+      "licencia": "Apache-2.0",
+      "lugar": "general",
+      "nivel": "Para todos",
+      "que": "Crea y edita archivos reales de Word, Excel, PowerPoint y PDF, con formato, tablas y fórmulas. Trae el creador de skills para que hagas las tuyas.",
+      "usos": [
+        {
+          "nombre": "docx",
+          "uso": "Word"
+        },
+        {
+          "nombre": "xlsx",
+          "uso": "Excel con fórmulas"
+        },
+        {
+          "nombre": "pptx",
+          "uso": "PowerPoint"
+        },
+        {
+          "nombre": "pdf",
+          "uso": "leer, unir y llenar PDF"
+        },
+        {
+          "nombre": "skill-creator",
+          "uso": "crea tus propias skills"
+        }
+      ],
+      "requiere": null,
+      "skills": [
+        {
+          "slug": "docx",
+          "ruta": "skills/docx"
+        },
+        {
+          "slug": "xlsx",
+          "ruta": "skills/xlsx"
+        },
+        {
+          "slug": "pptx",
+          "ruta": "skills/pptx"
+        },
+        {
+          "slug": "pdf",
+          "ruta": "skills/pdf"
+        },
+        {
+          "slug": "skill-creator",
+          "ruta": "skills/skill-creator"
+        }
+      ]
+    },
+    {
+      "id": "linkedin-skills",
+      "mark": "in",
+      "nombre": "LinkedIn Skills",
+      "autor": "Sergey Bulaev",
+      "repo": "sergebulaev/linkedin-skills",
+      "web": null,
+      "licencia": "MIT",
+      "lugar": "marketing",
+      "nivel": "Para todos",
+      "que": "Kit completo para LinkedIn: publicaciones, perfil, calendario, comentarios y respuestas que suenan a persona.",
+      "usos": [
+        {
+          "nombre": "linkedin-post-writer",
+          "uso": "publicaciones"
+        },
+        {
+          "nombre": "linkedin-profile-optimizer",
+          "uso": "perfil"
+        },
+        {
+          "nombre": "linkedin-content-planner",
+          "uso": "calendario"
+        },
+        {
+          "nombre": "linkedin-comment-drafter",
+          "uso": "comentarios"
+        },
+        {
+          "nombre": "linkedin-repurposer",
+          "uso": "reutiliza contenido"
+        }
+      ],
+      "requiere": null,
+      "skills": [
+        {
+          "slug": "linkedin-post-writer",
+          "ruta": "skills/linkedin-post-writer"
+        },
+        {
+          "slug": "linkedin-profile-optimizer",
+          "ruta": "skills/linkedin-profile-optimizer"
+        },
+        {
+          "slug": "linkedin-content-planner",
+          "ruta": "skills/linkedin-content-planner"
+        },
+        {
+          "slug": "linkedin-comment-drafter",
+          "ruta": "skills/linkedin-comment-drafter"
+        },
+        {
+          "slug": "linkedin-repurposer",
+          "ruta": "skills/linkedin-repurposer"
+        }
+      ]
+    },
+    {
+      "id": "instagram-skills",
+      "mark": "IG",
+      "nombre": "Instagram Skills",
+      "autor": "Sergey Bulaev",
+      "repo": "sergebulaev/instagram-skills",
+      "web": null,
+      "licencia": "MIT",
+      "lugar": "marketing",
+      "nivel": "Para todos",
+      "que": "Kit para Instagram: textos, carruseles, ganchos, hashtags, calendario y perfil.",
+      "usos": [
+        {
+          "nombre": "ig-caption-writer",
+          "uso": "textos"
+        },
+        {
+          "nombre": "ig-carousel-planner",
+          "uso": "carruseles"
+        },
+        {
+          "nombre": "ig-hook-extractor",
+          "uso": "ganchos que detienen el scroll"
+        },
+        {
+          "nombre": "ig-hashtag-strategist",
+          "uso": "hashtags"
+        },
+        {
+          "nombre": "ig-content-planner",
+          "uso": "calendario"
+        }
+      ],
+      "requiere": null,
+      "skills": [
+        {
+          "slug": "ig-caption-writer",
+          "ruta": "skills/ig-caption-writer"
+        },
+        {
+          "slug": "ig-carousel-planner",
+          "ruta": "skills/ig-carousel-planner"
+        },
+        {
+          "slug": "ig-hook-extractor",
+          "ruta": "skills/ig-hook-extractor"
+        },
+        {
+          "slug": "ig-hashtag-strategist",
+          "ruta": "skills/ig-hashtag-strategist"
+        },
+        {
+          "slug": "ig-content-planner",
+          "ruta": "skills/ig-content-planner"
+        }
+      ]
+    },
+    {
+      "id": "hyperframes",
+      "mark": "HF",
+      "nombre": "HyperFrames",
+      "autor": "HeyGen",
+      "repo": "heygen-com/hyperframes",
+      "web": null,
+      "licencia": "Apache-2.0",
+      "lugar": "contenido-ia",
+      "nivel": "Avanzado",
+      "que": "Videos con textos animados, cifras, subtítulos y presentaciones en movimiento, sin usar un editor de video.",
+      "usos": [
+        {
+          "nombre": "hyperframes",
+          "uso": "punto de entrada: videos, animaciones y subtítulos"
+        },
+        {
+          "nombre": "slideshow",
+          "uso": "presentación animada"
+        },
+        {
+          "nombre": "media-use",
+          "uso": "usa tus fotos, música y videos"
+        },
+        {
+          "nombre": "hyperframes-cli",
+          "uso": "vista previa y render a MP4"
+        }
+      ],
+      "requiere": "Necesita Claude Code, Codex o Antigravity instalado en la computadora.",
+      "skills": [
+        {
+          "slug": "hyperframes",
+          "ruta": "skills/hyperframes"
+        },
+        {
+          "slug": "hyperframes-cli",
+          "ruta": "skills/hyperframes-cli"
+        },
+        {
+          "slug": "media-use",
+          "ruta": "skills/media-use"
+        },
+        {
+          "slug": "slideshow",
+          "ruta": "skills/slideshow"
+        }
+      ]
+    },
+    {
+      "id": "higgsfield",
+      "mark": "HG",
+      "nombre": "Higgsfield",
+      "autor": "Higgsfield AI",
+      "repo": "higgsfield-ai/skills",
+      "web": "https://higgsfield.ai",
+      "licencia": "MIT",
+      "lugar": "contenido-ia",
+      "nivel": "Requiere cuenta",
+      "que": "Imágenes y videos con IA, el mismo personaje en varias tomas, fotos de producto y anuncios.",
+      "usos": [
+        {
+          "nombre": "higgsfield-generate",
+          "uso": "imagen y video"
+        },
+        {
+          "nombre": "higgsfield-soul-id",
+          "uso": "tu personaje o avatar"
+        },
+        {
+          "nombre": "higgsfield-product-photoshoot",
+          "uso": "fotos de producto"
+        },
+        {
+          "nombre": "higgsfield-youtube-thumbnail",
+          "uso": "miniaturas"
+        }
+      ],
+      "requiere": "Requiere cuenta de Higgsfield y consume sus créditos.",
+      "skills": [
+        {
+          "slug": "higgsfield-generate",
+          "ruta": "higgsfield-generate"
+        },
+        {
+          "slug": "higgsfield-soul-id",
+          "ruta": "higgsfield-soul-id"
+        },
+        {
+          "slug": "higgsfield-product-photoshoot",
+          "ruta": "higgsfield-product-photoshoot"
+        },
+        {
+          "slug": "higgsfield-youtube-thumbnail",
+          "ruta": "higgsfield-youtube-thumbnail"
+        }
+      ]
+    },
+    {
+      "id": "elevenlabs",
+      "mark": "11",
+      "nombre": "ElevenLabs",
+      "autor": "ElevenLabs",
+      "repo": "elevenlabs/skills",
+      "web": "https://elevenlabs.io",
+      "licencia": "MIT",
+      "lugar": "contenido-ia",
+      "nivel": "Requiere cuenta",
+      "que": "Voz en off natural en español, música y efectos de sonido para tus videos.",
+      "usos": [
+        {
+          "nombre": "text-to-speech",
+          "uso": "locución en español"
+        },
+        {
+          "nombre": "music",
+          "uso": "música para tus videos"
+        },
+        {
+          "nombre": "sound-effects",
+          "uso": "efectos de sonido"
+        },
+        {
+          "nombre": "speech-to-text",
+          "uso": "transcribe audios"
+        }
+      ],
+      "requiere": "Requiere cuenta de ElevenLabs.",
+      "skills": [
+        {
+          "slug": "text-to-speech",
+          "ruta": "text-to-speech"
+        },
+        {
+          "slug": "music",
+          "ruta": "music"
+        },
+        {
+          "slug": "sound-effects",
+          "ruta": "sound-effects"
+        },
+        {
+          "slug": "speech-to-text",
+          "ruta": "speech-to-text"
+        }
+      ]
+    },
+    {
+      "id": "scrapling",
+      "mark": "SC",
+      "nombre": "Scrapling",
+      "autor": "Karim Shoair (D4Vinci)",
+      "repo": "D4Vinci/Scrapling",
+      "web": null,
+      "licencia": "BSD-3-Clause",
+      "lugar": "datos",
+      "nivel": "Avanzado",
+      "que": "Saca datos de páginas web de forma ordenada (precios, catálogos, noticias, directorios) para analizarlos en Excel.",
+      "usos": [
+        {
+          "nombre": "tablas y listados",
+          "uso": "de una página a una hoja"
+        },
+        {
+          "nombre": "seguimiento de precios",
+          "uso": "compara en el tiempo"
+        },
+        {
+          "nombre": "sitios cambiantes",
+          "uso": "se adapta si la página cambia"
+        }
+      ],
+      "requiere": "Necesita Python. Úsalo solo en sitios que lo permitan y sin datos personales.",
+      "skills": [
+        {
+          "slug": "scrapling",
+          "ruta": "agent-skill/Scrapling-Skill"
+        }
+      ]
+    },
+    {
+      "id": "impeccable",
+      "mark": "IM",
+      "nombre": "Impeccable",
+      "autor": "Paul Bakaus",
+      "repo": "pbakaus/impeccable",
+      "web": null,
+      "licencia": "Apache-2.0",
+      "lugar": "emprendimiento",
+      "nivel": "Avanzado",
+      "que": "Diseña páginas web y landing pages con buen gusto, sin el look genérico de IA. Útil para presentar tu negocio o tus servicios.",
+      "usos": [
+        {
+          "nombre": "craft",
+          "uso": "diseña y construye"
+        },
+        {
+          "nombre": "critique",
+          "uso": "evalúa un diseño"
+        },
+        {
+          "nombre": "polish",
+          "uso": "último repaso antes de publicar"
+        }
+      ],
+      "requiere": "Necesita Claude Code, Codex o Antigravity instalado en la computadora.",
+      "skills": [
+        {
+          "slug": "impeccable",
+          "ruta": ".agents/skills/impeccable"
+        }
+      ]
+    }
+  ]
+}
