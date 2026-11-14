@@ -767,6 +767,64 @@
           "descripcion": "Destinos, conciertos, festivales y eventos con fechas y costos aproximados."
         }
       ]
+    },
+    {
+      "id": "animacion-video",
+      "mono": "AV",
+      "color": "#D1572B",
+      "nombre": "Animación y edición de video",
+      "para": "Para quien quiere crear videos animados, gráficos en movimiento y editar sus propios videos con Claude Code o Codex.",
+      "skills": [
+        {
+          "slug": "video-brief",
+          "nombre": "Brief de video",
+          "descripcion": "Convierte tu idea en un brief claro: objetivo, público, duración, formato por red, tono, material disponible y lo que falta conseguir."
+        },
+        {
+          "slug": "animation-storyboard",
+          "nombre": "Guion animado",
+          "descripcion": "Divide el video en escenas con tiempos, texto en pantalla, movimiento de cada elemento, transiciones y audio."
+        },
+        {
+          "slug": "motion-style-guide",
+          "nombre": "Estilo de movimiento",
+          "descripcion": "Define colores, tipografía, ritmo y tipo de animación para que todos tus videos se vean de la misma marca."
+        },
+        {
+          "slug": "video-edit-plan",
+          "nombre": "Plan de edición",
+          "descripcion": "A partir de tu grabación o tus tomas arma el orden de cortes, cuánto dura cada parte, qué se quita y dónde van textos, música y subtítulos."
+        },
+        {
+          "slug": "subtitles-pro",
+          "nombre": "Subtítulos que se leen",
+          "descripcion": "Transcribe, corrige y parte los subtítulos en líneas cortas con buen ritmo, para videos verticales y horizontales."
+        },
+        {
+          "slug": "video-export-guide",
+          "nombre": "Formatos y exportación",
+          "descripcion": "Qué resolución, relación de aspecto, tasa de cuadros y peso usar para Instagram, LinkedIn, YouTube, TikTok y WhatsApp."
+        },
+        {
+          "slug": "video-qa-checklist",
+          "nombre": "Revisión antes de publicar",
+          "descripcion": "Lista para revisar audio, texto cortado por la interfaz de la red, derechos de música e imágenes, y que se vea bien sin sonido."
+        }
+      ],
+      "agentes": [
+        {
+          "slug": "video-producer",
+          "nombre": "Productor de video",
+          "frecuencia": "Al iniciar un encargo",
+          "descripcion": "Te entrevista, arma el brief, el guion animado y el plan de producción; elige la herramienta correcta y no renderiza nada sin tu aprobación."
+        },
+        {
+          "slug": "video-editor",
+          "nombre": "Editor de video",
+          "frecuencia": "Al iniciar un encargo",
+          "descripcion": "Con tu grabación y tus notas entrega el plan de cortes, subtítulos y la lista de ajustes; prepara el proyecto y espera tu visto bueno antes de exportar."
+        }
+      ]
     }
   ],
   "terceros": [
@@ -1084,25 +1142,41 @@
       "repo": "heygen-com/hyperframes",
       "web": null,
       "licencia": "Apache-2.0",
-      "lugar": "contenido-ia",
+      "lugar": "animacion-video",
       "nivel": "Avanzado",
-      "que": "Videos con textos animados, cifras, subtítulos y presentaciones en movimiento, sin usar un editor de video.",
+      "que": "Videos con textos animados, cifras, subtítulos, presentaciones en movimiento y gráficos, hechos con código y sin editor de video. Es la base de las herramientas de animación del pack.",
       "usos": [
         {
           "nombre": "hyperframes",
-          "uso": "punto de entrada: videos, animaciones y subtítulos"
+          "uso": "punto de entrada: elige el flujo correcto"
         },
         {
-          "nombre": "slideshow",
-          "uso": "presentación animada"
+          "nombre": "hyperframes-cli",
+          "uso": "vista previa y exportar a MP4"
         },
         {
           "nombre": "media-use",
           "uso": "usa tus fotos, música y videos"
         },
         {
-          "nombre": "hyperframes-cli",
-          "uso": "vista previa y render a MP4"
+          "nombre": "slideshow",
+          "uso": "presentación animada"
+        },
+        {
+          "nombre": "remotion-to-hyperframes",
+          "uso": "pasa un proyecto de Remotion"
+        },
+        {
+          "nombre": "reverse-any-video",
+          "uso": "recrea un video de referencia"
+        },
+        {
+          "nombre": "style-sampling",
+          "uso": "elige un estilo visual con muestras"
+        },
+        {
+          "nombre": "figma",
+          "uso": "de un diseño de Figma a video"
         }
       ],
       "requiere": "Necesita Claude Code, Codex o Antigravity instalado en la computadora.",
@@ -1116,12 +1190,32 @@
           "ruta": "skills/hyperframes-cli"
         },
         {
+          "slug": "hyperframes-registry",
+          "ruta": "skills/hyperframes-registry"
+        },
+        {
           "slug": "media-use",
           "ruta": "skills/media-use"
         },
         {
           "slug": "slideshow",
           "ruta": "skills/slideshow"
+        },
+        {
+          "slug": "remotion-to-hyperframes",
+          "ruta": "skills/remotion-to-hyperframes"
+        },
+        {
+          "slug": "reverse-any-video",
+          "ruta": "skills/reverse-any-video"
+        },
+        {
+          "slug": "style-sampling",
+          "ruta": "skills/style-sampling"
+        },
+        {
+          "slug": "figma",
+          "ruta": "skills/figma"
         }
       ]
     },
@@ -1286,6 +1380,108 @@
         {
           "slug": "impeccable",
           "ruta": ".agents/skills/impeccable"
+        }
+      ]
+    },
+    {
+      "id": "remotion",
+      "mark": "RM",
+      "nombre": "Remotion",
+      "autor": "Remotion",
+      "repo": "remotion-dev/skills",
+      "web": null,
+      "licencia": "Ver licencia de Remotion",
+      "lugar": "animacion-video",
+      "nivel": "Avanzado",
+      "que": "Videos programados con React: crea, anima, agrega subtítulos y voz, y exporta. Para quien ya sabe algo de código.",
+      "usos": [
+        {
+          "nombre": "remotion-create",
+          "uso": "crear un proyecto de video"
+        },
+        {
+          "nombre": "remotion-best-practices",
+          "uso": "buenas prácticas de animación"
+        },
+        {
+          "nombre": "remotion-captions",
+          "uso": "subtítulos"
+        },
+        {
+          "nombre": "remotion-render",
+          "uso": "exportar a MP4"
+        },
+        {
+          "nombre": "remotion-studio",
+          "uso": "vista previa y edición"
+        }
+      ],
+      "requiere": "Necesita Node.js. Remotion pide una licencia comercial a empresas de más de tres personas: revisa su licencia antes de usarlo en tu negocio.",
+      "skills": [
+        {
+          "slug": "remotion-best-practices",
+          "ruta": "skills/remotion-best-practices"
+        },
+        {
+          "slug": "remotion-create",
+          "ruta": "skills/remotion-create"
+        },
+        {
+          "slug": "remotion-captions",
+          "ruta": "skills/remotion-captions"
+        },
+        {
+          "slug": "remotion-render",
+          "ruta": "skills/remotion-render"
+        },
+        {
+          "slug": "remotion-studio",
+          "ruta": "skills/remotion-studio"
+        },
+        {
+          "slug": "remotion-multimedia",
+          "ruta": "skills/remotion-multimedia"
+        }
+      ]
+    },
+    {
+      "id": "anthropic-arte",
+      "mark": "AA",
+      "nombre": "Arte y GIFs animados",
+      "autor": "Anthropic",
+      "repo": "anthropics/skills",
+      "web": null,
+      "licencia": "Apache-2.0",
+      "lugar": "animacion-video",
+      "nivel": "Para todos",
+      "que": "Arte generativo animado y GIFs optimizados para Slack y chat.",
+      "usos": [
+        {
+          "nombre": "algorithmic-art",
+          "uso": "arte generativo con movimiento"
+        },
+        {
+          "nombre": "slack-gif-creator",
+          "uso": "GIFs animados listos para chat"
+        },
+        {
+          "nombre": "canvas-design",
+          "uso": "piezas visuales fijas"
+        }
+      ],
+      "requiere": null,
+      "skills": [
+        {
+          "slug": "algorithmic-art",
+          "ruta": "skills/algorithmic-art"
+        },
+        {
+          "slug": "slack-gif-creator",
+          "ruta": "skills/slack-gif-creator"
+        },
+        {
+          "slug": "canvas-design",
+          "ruta": "skills/canvas-design"
         }
       ]
     }

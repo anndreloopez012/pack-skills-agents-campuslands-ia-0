@@ -33,8 +33,8 @@ la skill que quieras y pégalo como instrucciones de un Proyecto, un GPT o un Ge
 | Parte | Contenido |
 |---|---|
 | General (se instala solo) | 14 skills y 6 agentes: bandeja, procesos, investigación con fuentes, resumen de una página, reuniones, redacción, presentaciones, Excel, semana, prompts, voz humana, protección de datos, Veo y Flow, imágenes con IA |
-| Especializados (eliges) | 11 áreas: contabilidad, ventas, marketing, contenido con IA, docencia, datos, gestión pública, infraestructura, dirección, emprendimiento y desarrollo personal |
-| Comunidad | 11 kits de otros autores con su crédito y su licencia ([CREDITOS.md](CREDITOS.md)) |
+| Especializados (eliges) | 12 áreas: contabilidad, ventas, marketing, contenido con IA, animación y edición de video, docencia, datos, gestión pública, infraestructura, dirección, emprendimiento y desarrollo personal |
+| Comunidad | 13 kits de otros autores con su crédito y su licencia ([CREDITOS.md](CREDITOS.md)) |
 
 El detalle de cada pieza está en [catalogo.json](catalogo.json) y en el catálogo visual.
 
